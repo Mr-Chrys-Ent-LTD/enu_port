@@ -1,0 +1,75 @@
+{
+    "name": "MRCHRYS ENT NIG LTD",
+    "short_name": "MRCHRYS",
+    "description": "Professional solutions in telecommunications, software development, cybersecurity, engineering, logistics and general contracting",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "theme_color": "#003d82",
+    "background_color": "#ffffff",
+    "icons": [
+        {
+            "src": "/static/images/logo.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/static/images/logo.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/static/images/logo.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/static/images/logo.png",
+            "sizes": "540x720",
+            "type": "image/png",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "/static/images/logo.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor": "wide"
+        }
+    ],
+    "categories": [
+        "business",
+        "productivity"
+    ],
+    "shortcuts": [
+        {
+            "name": "Services",
+            "short_name": "Services",
+            "description": "View our services",
+            "url": "/services/",
+            "icons": [
+                {
+                    "src": "/static/images/logo.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Contact",
+            "short_name": "Contact",
+            "description": "Contact us",
+            "url": "/contact/",
+            "icons": [
+                {
+                    "src": "/static/images/logo.png",
+                    "sizes": "192x192"
+                }
+            ]
+        }
+    ]
+}

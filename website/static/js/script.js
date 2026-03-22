@@ -16,13 +16,71 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 function initializeNavbar() {
     const navbar = document.querySelector('.navbar');
-
-    // Close mobile menu when link is clicked
-    const navLinks = document.querySelectorAll('.nav-link');
     const navbarCollapse = document.querySelector('.navbar-collapse');
+    const dropdownItem = document.querySelector('.nav-item.dropdown');
+
+    // Handle hover for desktop (show dropdown on hover)
+    if (dropdownItem) {
+        dropdownItem.addEventListener('mouseenter', function () {
+            if (window.innerWidth >= 992) {
+                const dropdownToggle = this.querySelector('.nav-link.dropdown-toggle');
+                const dropdownMenu = this.querySelector('.dropdown-menu');
+
+                if (dropdownToggle && dropdownMenu) {
+                    dropdownToggle.classList.add('show');
+                    dropdownMenu.classList.add('show');
+                    dropdownToggle.setAttribute('aria-expanded', 'true');
+                }
+            }
+        });
+
+        dropdownItem.addEventListener('mouseleave', function () {
+            if (window.innerWidth >= 992) {
+                const dropdownToggle = this.querySelector('.nav-link.dropdown-toggle');
+                const dropdownMenu = this.querySelector('.dropdown-menu');
+
+                if (dropdownToggle && dropdownMenu) {
+                    dropdownToggle.classList.remove('show');
+                    dropdownMenu.classList.remove('show');
+                    dropdownToggle.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+    }
+
+    // Handle dropdown toggle to expand navbar if collapsed on mobile
+    const dropdownToggle = document.querySelector('.nav-link.dropdown-toggle');
+    if (dropdownToggle) {
+        dropdownToggle.addEventListener('click', function (e) {
+            // Check if navbar is collapsed (only on mobile < 992px)
+            if (window.innerWidth < 992) {
+                const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                    toggle: false
+                });
+                // If collapsed, show it
+                if (!navbarCollapse.classList.contains('show')) {
+                    bsCollapse.show();
+                }
+            }
+        });
+    }
+
+    // Close mobile menu when regular nav link is clicked (but not dropdown items)
+    const navLinks = document.querySelectorAll('.nav-link:not(.dropdown-toggle)');
 
     navLinks.forEach(link => {
         link.addEventListener('click', function () {
+            const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                toggle: false
+            });
+            bsCollapse.hide();
+        });
+    });
+
+    // Handle dropdown item clicks to close navbar
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    dropdownItems.forEach(item => {
+        item.addEventListener('click', function () {
             const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
                 toggle: false
             });

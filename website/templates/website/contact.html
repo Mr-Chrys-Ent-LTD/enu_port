@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load custom_filters %}
 
-{% block title %}Contact Us - MRCHRYS ENT NIG LTD{% endblock %}
+{% block title %}Contact Us - {{ company.name }} Ent.{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
@@ -246,6 +246,37 @@
                     </a>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Service Apps Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="h1 mb-3">Connect With Our Service Teams</h2>
+            <p class="lead text-muted">Specialized teams for each service area</p>
+        </div>
+
+        <div class="row g-4">
+            {% for key, service in service_apps.items %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <i class="fas {{ service.icon }} fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">{{ service.name }}</h5>
+                            <p class="card-text text-muted">{{ service.description }}</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pt-0">
+                            <a href="{{ service.url }}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-arrow-right me-2"></i>Connect
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </section>

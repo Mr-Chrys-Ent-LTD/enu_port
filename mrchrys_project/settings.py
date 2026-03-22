@@ -27,7 +27,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'website',  # Our main app
+
+    # Main website app
+    'website',
+
+    # Shared app for all services
+    'inquiries',
+
+    # Service-specific apps
+    'telecommunications',
+    'software_dev',
+    'cybersecurity',
+    'engineering',
+    'logistics',
+    'contracting',
 ]
 
 MIDDLEWARE = [
@@ -45,7 +58,10 @@ ROOT_URLCONF = 'mrchrys_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'website' / 'templates'],
+        'DIRS': [
+            BASE_DIR / 'website' / 'templates',
+            BASE_DIR / 'inquiries' / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -53,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'website.context_processors.service_apps_context',
             ],
         },
     },
@@ -102,6 +119,12 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
     BASE_DIR / 'website' / 'static',
+    BASE_DIR / 'telecommunications' / 'static',
+    BASE_DIR / 'software_dev' / 'static',
+    BASE_DIR / 'cybersecurity' / 'static',
+    BASE_DIR / 'engineering' / 'static',
+    BASE_DIR / 'logistics' / 'static',
+    BASE_DIR / 'contracting' / 'static',
 ]
 
 # Media files

@@ -1,4 +1,4 @@
-/* 
+/* /* 
  * MRCHRYS ENT NIG LTD - Main Stylesheet
  * Color Scheme: Dark Blue (#003d82), White (#ffffff), Orange (#ff9500)
  */
@@ -157,11 +157,13 @@ small {
 /* ======================== */
 
 .navbar {
-    background-color: var(--primary-color) !important;
-    box-shadow: 0 4px 8px var(--shadow-color);
+    background-color: rgba(0, 61, 130, 0.7) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 0.75rem 0 !important;
     transition: all 0.3s ease;
-    border-bottom: 3px solid var(--secondary-color);
+    border-bottom: 2px solid rgba(255, 149, 0, 0.5);
 }
 
 .navbar-brand {
@@ -175,6 +177,20 @@ small {
     align-items: center;
     font-weight: 800;
     transition: color 0.3s ease;
+}
+
+.navbar-brand img {
+    filter: brightness(1);
+    transition: filter 0.3s ease, opacity 0.3s ease;
+    max-height: 70px;
+    width: auto;
+    opacity: 0.95;
+    object-fit: contain;
+}
+
+.navbar-brand:hover img {
+    filter: brightness(1.1);
+    opacity: 1;
 }
 
 .navbar-brand:hover {
@@ -228,13 +244,55 @@ small {
 }
 
 /* ======================== */
+/* Dropdown Menu */
+/* ======================== */
+
+.nav-item.dropdown .dropdown-menu {
+    background-color: rgba(0, 61, 130, 0.95);
+    border: 1px solid rgba(255, 149, 0, 0.3);
+    border-top: none;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    padding: 0.5rem 0;
+}
+
+.nav-item.dropdown .dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem !important;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.dropdown-item:hover,
+.dropdown-item.active {
+    background-color: rgba(255, 149, 0, 0.2) !important;
+    color: var(--secondary-color) !important;
+}
+
+.dropdown-item i {
+    color: var(--secondary-color);
+    transition: all 0.3s ease;
+}
+
+/* ======================== */
 /* Hero Section */
 /* ======================== */
 
 .hero-section {
-    background: linear-gradient(135deg, var(--dark-color) 0%, var(--primary-color) 100%);
+    background-image: var(--hero-bg-image, linear-gradient(135deg, var(--dark-color) 0%, var(--primary-color) 100%));
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     color: var(--white-color);
     padding: 120px 0;
     position: relative;
@@ -411,6 +469,24 @@ section.py-5 {
 
 .service-card:hover {
     border-left-color: var(--primary-color);
+}
+
+.transition-card {
+    transition: all 0.3s ease;
+}
+
+.transition-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px var(--shadow-color) !important;
+}
+
+.hover-lift {
+    transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15) !important;
 }
 
 .project-card {

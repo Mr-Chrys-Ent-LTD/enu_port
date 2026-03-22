@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load custom_filters %}
 
-{% block title %}Projects - MRCHRYS ENT NIG LTD{% endblock %}
+{% block title %}Projects - {{ company.name }} Ent{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
@@ -12,7 +12,7 @@
                 <h1 class="display-5 fw-bold text-white mb-3">Our Projects</h1>
                 <p class="lead text-light">Showcasing our successful implementations across various sectors</p>
             </div>
-        </div>
+        </div>  
     </div>
 </section>
 
@@ -22,11 +22,11 @@
         {% if projects %}
             <div class="row g-4">
                 {% for project in projects %}
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 border-0 shadow-sm project-card">
-                            {% if project.image %}
-                                <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" style="height: 250px; object-fit: cover;">
-                            {% else %}
+                <a href="{% url 'project_detail' project.slug %}" class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm project-card">
+                        {% if project.image %}
+                            <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" style="height: 250px; object-fit: cover;">
+                        {% else %}
                                 <div class="bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
                                     <div class="text-center text-muted">
                                         <i class="fas fa-image fa-4x mb-2"></i>
@@ -37,17 +37,35 @@
                             <div class="card-body">
                                 <span class="badge bg-primary mb-2">{{ project.category }}</span>
                                 <h5 class="card-title fw-bold">{{ project.title }}</h5>
-                                <p class="card-text text-muted">{{ project.description|truncatewords:30 }}</p>
+                                <p class="card-text text-muted small">{{ project.description|truncatewords:25 }}</p>
+                                
+                                {% if project.client %}
+                                    <p class="mb-2 small text-secondary">
+                                        <i class="fas fa-building me-1 text-primary"></i><strong>Client:</strong> {{ project.client }}
+                                    </p>
+                                {% endif %}
+                                
                                 {% if project.completion_date %}
-                                    <small class="text-muted">
-                                        <i class="fas fa-calendar me-1"></i>
-                                        Completed: {{ project.completion_date|date:"M Y" }}
-                                    </small>
+                                    <p class="mb-2 small text-secondary">
+                                        <i class="fas fa-calendar-alt me-1 text-primary"></i><strong>Completed:</strong> {{ project.completion_date|date:"M Y" }}
+                                    </p>
+                                {% endif %}
+                                
+                                {% if project.technologies %}
+                                    <p class="mb-2 small text-secondary">
+                                        <i class="fas fa-tools me-1 text-primary"></i><strong>Tech:</strong> {{ project.technologies|truncatewords:5 }}
+                                    </p>
+                                {% endif %}
+                                
+                                {% if project.result %}
+                                    <div class="alert alert-success small py-2 px-3 mt-3 mb-0" style="font-size: 0.85rem;">
+                                        <strong>Result:</strong> {{ project.result|truncatewords:15 }}
+                                    </div>
                                 {% endif %}
                             </div>
                             <div class="card-footer bg-transparent border-0">
-                                <a href="{% url 'contact' %}" class="btn btn-sm btn-primary">
-                                    Learn More
+                                <a href="{% url 'project_detail' project.slug %}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-info-circle me-1"></i>View Details
                                 </a>
                             </div>
                         </div>
@@ -139,6 +157,37 @@
                     <p class="text-muted small">Data analytics, smart systems, digital transformation.</p>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Service Apps Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="h1 mb-3">Explore Our Service Divisions</h2>
+            <p class="lead text-muted">Each service area has dedicated teams and specialized solutions</p>
+        </div>
+
+        <div class="row g-4">
+            {% for key, service in service_apps.items %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <i class="fas {{ service.icon }} fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">{{ service.name }}</h5>
+                            <p class="card-text text-muted">{{ service.description }}</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pt-0">
+                            <a href="{{ service.url }}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-arrow-right me-2"></i>View Services
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </section>

@@ -1,0 +1,8 @@
+"""App configuration for cybersecurity service."""
+from django.apps import AppConfig
+
+
+class CybersecurityConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'cybersecurity'
+    verbose_name = 'Cybersecurity Services'

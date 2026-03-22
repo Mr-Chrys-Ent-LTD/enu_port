@@ -12,15 +12,55 @@ from .forms import ContactForm
 
 # Company Information Dictionary
 COMPANY_INFO = {
-    'name': 'MRCHRYS ENT NIG LTD',
+    'name': 'MrChrys',
     'tagline': 'Building Smart Solutions Across Technology, Telecom, Engineering & Beyond',
     'email': 'info@mrchrys.com',
-    'phone': '+234 (0) 123 456 7890',
-    'whatsapp': '+2341234567890',
-    'address': 'Lagos, Nigeria',
-    'vision': 'To become a leading multi-industry solutions provider in Africa.',
-    'mission': 'To deliver high-quality, innovative, and reliable services that empower businesses and communities.',
+    'phone': '+2347012224108',
+    'whatsapp': '+2347012224108',
+    'address': 'Abuja, Nigeria',
+    'vision': "To become a leading multi-industry solutions provider in Africa, recognized for our innovation, reliability, and commitment to customer success.",
+    'mission': "To deliver high-quality, innovative, and reliable services that empower businesses and communities to thrive in a competitive and rapidly evolving global marketplace",
     'values': ['Integrity', 'Excellence', 'Innovation', 'Reliability', 'Customer Satisfaction'],
+}
+
+# Mapping of service categories to service apps
+SERVICE_APPS = {
+    'Telecommunications': {
+        'name': 'Telecommunications',
+        'url': '/telecommunications/',
+        'icon': 'fas fa-tower-cell',
+        'description': 'Network design, installation, and maintenance services'
+    },
+    'Software & IT': {
+        'name': 'Software Development',
+        'url': '/software-dev/',
+        'icon': 'fas fa-code',
+        'description': 'Custom software solutions and development services'
+    },
+    'Cybersecurity': {
+        'name': 'Cybersecurity',
+        'url': '/cybersecurity/',
+        'icon': 'fas fa-shield-alt',
+        'description': 'Security audits, testing, and threat monitoring'
+    },
+    'Engineering & Construction': {
+        'name': 'Engineering',
+        'url': '/engineering/',
+        'icon': 'fas fa-hard-hat',
+        'description': 'Engineering consulting and implementation services'
+    },
+    'Logistics & Supply': {
+        'name': 'Logistics',
+        'url': '/logistics/',
+        'icon': 'fas fa-truck',
+        'description': 'Supply chain and logistics management'
+    },
+    'General Contracts': {
+        'name': 'General Contracting',
+        'url': '/contracting/',
+        'icon': 'fas fa-handshake',
+        'description': 'Professional contracting and project management'
+    },
 }
 
 # Services data structure
@@ -135,14 +175,14 @@ def projects(request):
     return render(request, 'website/projects.html', context)
 
 
-def project_detail(request, project_id):
+def project_detail(request, project_slug):
     """View for displaying individual project details."""
-    project = get_object_or_404(Project, pk=project_id)
+    project = get_object_or_404(Project, slug=project_slug)
 
     # Get related projects (same category)
     related_projects = Project.objects.filter(
         category=project.category
-    ).exclude(pk=project_id)[:3]
+    ).exclude(slug=project_slug)[:3]
 
     context = {
         'company': COMPANY_INFO,

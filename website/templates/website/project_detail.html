@@ -1,7 +1,35 @@
 {% extends 'base.html' %}
 {% load custom_filters %}
 
-{% block title %}{{ project.title }} - MRCHRYS ENT NIG LTD{% endblock %}
+{% block title %}{{ project.title }} - {{ company.name }} Ent{% endblock %}
+
+{% block extra_meta %}
+    <!-- Open Graph Meta Tags for Social Sharing -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ project.title }} - {{ company.name }} Ent">
+    <meta property="og:description" content="{{ project.description|truncatewords:30 }}">
+    {% if project.image %}
+        <meta property="og:image" content="{{ request.build_absolute_uri }}{{ project.image.url }}">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:image:type" content="image/jpeg">
+    {% endif %}
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:site_name" content="{{ company.name }} Ent">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ project.title }} - {{ company.name }} Ent">
+    <meta name="twitter:description" content="{{ project.description|truncatewords:30 }}">
+    {% if project.image %}
+        <meta name="twitter:image" content="{{ request.build_absolute_uri }}{{ project.image.url }}">
+    {% endif %}
+    <meta name="twitter:creator" content="@mrchrys">
+    
+    <!-- LinkedIn Meta Tags -->
+    <meta property="linkedin:title" content="{{ project.title }}">
+    <meta property="linkedin:description" content="{{ project.description|truncatewords:30 }}">
+{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
@@ -17,7 +45,12 @@
                     </ol>
                 </nav>
                 <h1 class="display-5 fw-bold text-white mb-3">{{ project.title }}</h1>
-                <p class="lead text-light">Completed in {{ project.completion_date|date:"F Y" }}</p>
+                <div class="d-flex gap-3 flex-wrap align-items-center">
+                    <span class="badge bg-light text-primary fs-6">{{ project.category }}</span>
+                    {% if project.completion_date %}
+                        <p class="lead text-light mb-0">Completed in {{ project.completion_date|date:"F Y" }}</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
@@ -41,6 +74,49 @@
                             </div>
                         </div>
                     {% endif %}
+                </div>
+
+                <!-- Share Buttons -->
+                <div class="mb-5 p-4 bg-light rounded border">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-share-alt me-2 text-primary"></i>Share This Project
+                    </h5>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <!-- Facebook Share -->
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" 
+                           class="btn btn-primary btn-sm" target="_blank" title="Share on Facebook">
+                            <i class="fab fa-facebook-f me-1"></i>Facebook
+                        </a>
+                        
+                        <!-- Twitter Share -->
+                        <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text=Check out this amazing project: {{ project.title }}" 
+                           class="btn btn-info btn-sm" target="_blank" title="Share on Twitter">
+                            <i class="fab fa-twitter me-1"></i>Twitter
+                        </a>
+                        
+                        <!-- LinkedIn Share -->
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" 
+                           class="btn btn-primary btn-sm" style="background-color: #0A66C2;" target="_blank" title="Share on LinkedIn">
+                            <i class="fab fa-linkedin-in me-1"></i>LinkedIn
+                        </a>
+                        
+                        <!-- WhatsApp Share -->
+                        <a href="https://wa.me/?text=Check out this project: {{ project.title }} - {{ request.build_absolute_uri }}" 
+                           class="btn btn-success btn-sm" target="_blank" title="Share on WhatsApp">
+                            <i class="fab fa-whatsapp me-1"></i>WhatsApp
+                        </a>
+                        
+                        <!-- Email Share -->
+                        <a href="mailto:?subject=Check out this project: {{ project.title }}&body={{ project.description|truncatewords:50 }} - {{ request.build_absolute_uri }}" 
+                           class="btn btn-secondary btn-sm" title="Share via Email">
+                            <i class="fas fa-envelope me-1"></i>Email
+                        </a>
+                        
+                        <!-- Copy Link -->
+                        <button class="btn btn-danger btn-sm" onclick="copyToClipboard('{{ request.build_absolute_uri }}'); this.innerHTML='<i class=\"fas fa-check me-1\"></i>Copied!';" title="Copy link to clipboard">
+                            <i class="fas fa-link me-1"></i>Copy Link
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Project Description -->
@@ -84,6 +160,54 @@
                             </div>
                         </div>
                     </div>
+                    
+                    {% if project.client %}
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm h-100 bg-light">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fas fa-building fa-2x text-primary me-3"></i>
+                                    <div>
+                                        <h6 class="card-title mb-0">Client</h6>
+                                        <p class="mb-0 text-muted">{{ project.client }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if project.technologies %}
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm h-100 bg-light">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-tools fa-2x text-primary me-3 mt-1"></i>
+                                    <div>
+                                        <h6 class="card-title mb-0">Technologies</h6>
+                                        <p class="mb-0 text-muted small">{{ project.technologies }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if project.result %}
+                    <div class="col-12">
+                        <div class="card border-0 shadow-sm bg-success bg-opacity-10">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start">
+                                    <i class="fas fa-check-circle fa-2x text-success me-3 mt-1"></i>
+                                    <div class="w-100">
+                                        <h6 class="card-title mb-0">Project Result</h6>
+                                        <p class="mb-0 text-dark mt-2">{{ project.result }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
 
                 <!-- Call to Action -->
@@ -111,7 +235,7 @@
                     </h4>
                     <div class="d-flex flex-column gap-3">
                         {% for rel_project in related_projects %}
-                            <a href="{% url 'project_detail' rel_project.id %}" class="card border-0 shadow-sm text-decoration-none text-dark transition-all">
+                            <a href="{% url 'project_detail' rel_project.slug %}" class="card border-0 shadow-sm text-decoration-none text-dark transition-all">
                                 {% if rel_project.image %}
                                     <img src="{{ rel_project.image.url }}" class="card-img-top" alt="{{ rel_project.title }}" style="height: 150px; object-fit: cover;">
                                 {% else %}
@@ -201,7 +325,7 @@
         <div class="row g-4">
             {% for proj in related_projects %}
                 <div class="col-md-6 col-lg-4">
-                    <a href="{% url 'project_detail' proj.id %}" class="card h-100 border-0 shadow-sm project-card text-decoration-none text-dark transition-all">
+                    <a href="{% url 'project_detail' proj.slug %}" class="card h-100 border-0 shadow-sm project-card text-decoration-none text-dark transition-all">
                         {% if proj.image %}
                             <img src="{{ proj.image.url }}" class="card-img-top" alt="{{ proj.title }}" style="height: 250px; object-fit: cover;">
                         {% else %}
@@ -229,6 +353,37 @@
             <a href="{% url 'projects' %}" class="btn btn-outline-primary btn-lg">
                 <i class="fas fa-arrow-left me-2"></i>Back to All Projects
             </a>
+        </div>
+    </div>
+</section>
+
+<!-- Service Apps Cross-Promotion Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="h1 mb-3">Explore Our Specialized Services</h2>
+            <p class="lead text-muted">Dedicated teams for every business need</p>
+        </div>
+
+        <div class="row g-4">
+            {% for key, service in service_apps.items %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm transition-card">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <i class="fas {{ service.icon }} fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">{{ service.name }}</h5>
+                            <p class="card-text text-muted">{{ service.description }}</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pt-0">
+                            <a href="{{ service.url }}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-arrow-right me-2"></i>Explore
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </section>

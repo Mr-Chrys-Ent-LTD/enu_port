@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ service_name }} - {{ company.name }} Ent.{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-5 fw-bold text-white mb-3">{{ service_name }}</h1>
+                <p class="lead text-light">Protect your business with enterprise-grade security solutions</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <h2 class="h1 mb-4">{{service_name}} Solutions</h2>
+                <p class="lead mb-3">
+                    {{ company.name }} provides comprehensive cybersecurity solutions to protect your organization from evolving threats.
+                </p>
+                <p class="mb-4">
+                    Our certified security experts implement defense-in-depth strategies tailored to your business requirements.
+                </p>
+                <a href="{% url 'inquiries:submit_service' 'cybersecurity' %}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-envelope me-2"></i>Get Protected
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <div class="ratio ratio-16x9">
+                    <div class="bg-light rounded d-flex align-items-center justify-content-center">
+                        <div class="text-center text-muted">
+                   
+                            <p><img src="{% static 'images/cyber.jpg' %}" alt="Cybersecurity Image"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="h1 mb-3">Our Security Services</h2>
+        </div>
+        <div class="row g-4">
+            {% for offering in offerings %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <i class="fas fa-{{ offering.icon }} fa-2x text-primary"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">{{ offering.title }}</h5>
+                            <p class="card-text text-muted">{{ offering.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="h1 mb-3">Our Security Projects</h2>
+            <p class="lead text-muted">Real-world case studies of successful implementations</p>
+        </div>
+        {% if projects %}
+            <div class="row g-4">
+                {% for project in projects %}
+                    <div class="col-lg-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-primary">{{ project.title }}</h5>
+                                
+                                {% if project.client %}
+                                    <p class="mb-2 small text-secondary">
+                                        <i class="fas fa-building me-1 text-primary"></i><strong>Client:</strong> {{ project.client }}
+                                    </p>
+                                {% endif %}
+                                
+                                <p class="card-text text-secondary small mb-3">{{ project.description }}</p>
+                                
+                                {% if project.result %}
+                                    <div class="alert alert-success small py-2 px-3" style="font-size: 0.85rem;">
+                                        <strong><i class="fas fa-check-circle me-1"></i>Result:</strong> {{ project.result }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            {% if project.completion_date %}
+                                <div class="card-footer bg-light text-muted small">
+                                    <i class="fas fa-calendar-alt me-1"></i>Completed: {{ project.completion_date|date:"M Y" }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center" role="alert">
+                <p class="mb-0">Projects coming soon. Contact us to learn about our latest security initiatives.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="h1 mb-4">Secure Your Business Today</h2>
+        <p class="lead mb-4">
+            Don't wait for a breach. Implement proactive security measures now.
+        </p>
+        <a href="{% url 'inquiries:submit_service' 'cybersecurity' %}" class="btn btn-light btn-lg">
+            <i class="fas fa-envelope me-2"></i>Schedule Security Assessment
+        </a>
+    </div>
+</section>
+{% endblock %}

@@ -1,174 +1,261 @@
 {% extends 'base.html' %}
+{% load custom_filters %}
+{% load static %}
 
-{% block title %}About Us | MRCHRYS ENT NIG LTD{% endblock %}
+{% block title %}About Us - {{ company.name }} Ent{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
-<section class="page-header bg-primary py-5">
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-lg-8">
-                <h1 class="display-4 fw-bold text-white mb-3">About Us</h1>
-                <p class="lead text-white-50 mb-0">Learn more about MRCHRYS ENT NIG LTD and our commitment to excellence</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Who We Are Section -->
-<section class="py-5">
-    <div class="container py-5">
+<section class="page-header">
+    <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <div class="position-relative">
-                    <div class="bg-primary rounded-4" style="height: 450px; background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
-                        <div class="d-flex align-items-center justify-content-center h-100">
-                            <i class="fas fa-building text-white" style="font-size: 10rem; opacity: 0.2;"></i>
-                        </div>
-                    </div>
-                    <div class="position-absolute bottom-0 end-0 bg-white p-4 rounded-4 shadow-lg m-3" style="max-width: 250px;">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fas fa-check-circle text-success me-2"></i>
-                            <span class="fw-bold">Registered Company</span>
-                        </div>
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fas fa-check-circle text-success me-2"></i>
-                            <span class="fw-bold">Industry Certified</span>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-check-circle text-success me-2"></i>
-                            <span class="fw-bold">Nationwide Service</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 ps-lg-5">
-                <h6 class="text-accent fw-bold text-uppercase mb-2">Who We Are</h6>
-                <h2 class="fw-bold mb-4">A Leading Multi-Industry Solutions Provider</h2>
-                <p class="text-muted mb-4">
-                    MRCHRYS ENT NIG LTD is a registered Nigerian company providing a wide range of 
-                    professional services across technology, engineering, and business support sectors. 
-                    Founded with a vision to bridge the gap between quality service delivery and 
-                    customer satisfaction, we have grown to become a trusted name in the industry.
-                </p>
-                <p class="text-muted mb-4">
-                    Our diverse portfolio spans telecommunications, software development, cybersecurity, 
-                    engineering, logistics, and general contracting. We pride ourselves on our ability 
-                    to adapt to the unique needs of each client while maintaining the highest standards 
-                    of professionalism and integrity.
-                </p>
-                <div class="row g-3">
-                    <div class="col-6">
-                        <div class="d-flex align-items-center">
-                            <div class="icon-box bg-primary bg-opacity-10 text-primary rounded-3 me-3">
-                                <i class="fas fa-project-diagram"></i>
-                            </div>
-                            <div>
-                                <span class="d-block fw-bold fs-4">500+</span>
-                                <span class="text-muted small">Projects Completed</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="d-flex align-items-center">
-                            <div class="icon-box bg-success bg-opacity-10 text-success rounded-3 me-3">
-                                <i class="fas fa-smile"></i>
-                            </div>
-                            <div>
-                                <span class="d-block fw-bold fs-4">300+</span>
-                                <span class="text-muted small">Happy Clients</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-8">
+                <h1 class="display-5 fw-bold text-white mb-3">About {{ company.name }}</h1>
+                <p class="lead text-light">Discover our story, vision, and commitment to excellence</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Vision & Mission Section -->
-<section class="py-5 bg-light">
-    <div class="container py-5">
-        <div class="row g-4">
-            <div class="col-lg-6">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body p-5">
-                        <div class="d-flex align-items-center mb-4">
-                            <div class="icon-box-lg bg-primary bg-opacity-10 text-primary rounded-3 me-3">
-                                <i class="fas fa-eye"></i>
-                            </div>
-                            <h3 class="fw-bold mb-0">Our Vision</h3>
-                        </div>
-                        <p class="text-muted fs-5 mb-0">
-                            To become a leading multi-industry solutions provider in Africa, recognized 
-                            for our innovation, reliability, and commitment to excellence. We aim to 
-                            transform businesses and communities through cutting-edge technology and 
-                            professional services.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body p-5">
-                        <div class="d-flex align-items-center mb-4">
-                            <div class="icon-box-lg bg-accent bg-opacity-10 text-accent rounded-3 me-3">
-                                <i class="fas fa-bullseye"></i>
-                            </div>
-                            <h3 class="fw-bold mb-0">Our Mission</h3>
-                        </div>
-                        <p class="text-muted fs-5 mb-0">
-                            To deliver high-quality, innovative, and reliable services that empower 
-                            businesses and communities. We are committed to exceeding client expectations 
-                            through continuous improvement, ethical practices, and sustainable solutions.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Core Values Section -->
+<!-- Company Overview -->
 <section class="py-5">
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <h6 class="text-accent fw-bold text-uppercase mb-2">Our Principles</h6>
-            <h2 class="fw-bold mb-3">Core Values</h2>
-            <p class="text-muted mx-auto" style="max-width: 600px;">
-                These principles guide everything we do at MRCHRYS ENT NIG LTD
-            </p>
-        </div>
-        
-        <div class="row g-4">
-            {% for value in values %}
-            <div class="col-md-6 col-lg-4">
-                <div class="value-card card h-100 border-0 shadow-sm hover-lift">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-start">
-                            <div class="value-icon bg-primary bg-opacity-10 text-primary rounded-3 me-3 flex-shrink-0">
-                                <i class="fas fa-{{ value.icon }}"></i>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold mb-2">{{ value.name }}</h5>
-                                <p class="text-muted mb-0">{{ value.description }}</p>
-                            </div>
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <h2 class="h1 mb-4">Who We Are</h2>
+                <p class="lead mb-3">
+                    {{ company.name }} is a registered Nigerian company providing a wide range of professional services 
+                    across multiple industries and sectors.
+                </p>
+                <p class="mb-3">
+                    With a team of experienced professionals, we specialize in delivering innovative solutions that address 
+                    the complex challenges faced by businesses in today's digital economy. Our expertise spans telecommunications, 
+                    software development, cybersecurity, engineering, logistics, and general contracting.
+                </p>
+                <p>
+                    We are committed to building long-term partnerships with our clients by providing reliable, cost-effective, 
+                    and sustainable solutions that drive business growth and operational excellence.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <div class="ratio ratio-16x9">
+                    <div class="bg-light rounded d-flex align-items-center justify-content-center">
+                        <div class="text-center text-muted">
+                    
+                            <p><img src="{% static 'images/office.jpg' %}" alt="Office Image"></p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Vision & Mission -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-briefcase fa-3x text-primary"></i>
+                        </div>
+                        <h3 class="card-title fw-bold mb-3">Our Vision</h3>
+                        <p class="card-text lead">
+                            {{ company.vision }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-bullseye fa-3x text-success"></i>
+                        </div>
+                        <h3 class="card-title fw-bold mb-3">Our Mission</h3>
+                        <p class="card-text lead">
+                            {{ company.mission }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Values -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="h1 mb-3">Our Core Values</h2>
+            <p class="lead text-muted">These principles guide everything we do</p>
+        </div>
+
+        <div class="row g-4">
+            {% for value in company.values %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="text-center p-4 bg-light rounded">
+                        <div class="mb-3">
+                            {% if value == 'Integrity' %}
+                                <i class="fas fa-handshake fa-3x text-primary"></i>
+                            {% elif value == 'Excellence' %}
+                                <i class="fas fa-star fa-3x text-warning"></i>
+                            {% elif value == 'Innovation' %}
+                                <i class="fas fa-lightbulb fa-3x text-info"></i>
+                            {% elif value == 'Reliability' %}
+                                <i class="fas fa-shield-alt fa-3x text-success"></i>
+                            {% elif value == 'Customer Satisfaction' %}
+                                <i class="fas fa-smile fa-3x text-danger"></i>
+                            {% endif %}
+                        </div>
+                        <h5 class="fw-bold">{{ value }}</h5>
+                        <p class="text-muted small mt-2">
+                            {% if value == 'Integrity' %}
+                                We operate with honesty, transparency, and ethical standards in all our dealings.
+                            {% elif value == 'Excellence' %}
+                                We strive for the highest quality in every project, service, and interaction.
+                            {% elif value == 'Innovation' %}
+                                We embrace technology and creative thinking to deliver cutting-edge solutions.
+                            {% elif value == 'Reliability' %}
+                                We deliver on our promises and provide consistent, dependable service.
+                            {% elif value == 'Customer Satisfaction' %}
+                                Your success is our success - we're invested in your growth and satisfaction.
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
             {% endfor %}
         </div>
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="py-5 bg-primary">
-    <div class="container py-5 text-center">
-        <h2 class="fw-bold text-white mb-3">Want to Work With Us?</h2>
-        <p class="text-white-50 mb-4 fs-5">Join hundreds of satisfied clients who trust MRCHRYS ENT NIG LTD</p>
-        <a href="{% url 'contact' %}" class="btn btn-light btn-lg px-5">Get In Touch</a>
+<!-- Why Partner With Us -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="h1 mb-3">Why Partner With {{ company.name }}?</h2>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="d-flex gap-3">
+                    <div>
+                        <i class="fas fa-check-circle fa-2x text-success mt-1"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-2">Multi-Industry Expertise</h5>
+                        <p class="text-muted small">Diverse skills across telecommunications, IT, cybersecurity, engineering, 
+                        and more.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="d-flex gap-3">
+                    <div>
+                        <i class="fas fa-users fa-2x text-primary mt-1"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-2">Experienced Team</h5>
+                        <p class="text-muted small">Professionals with years of industry experience and proven track records.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="d-flex gap-3">
+                    <div>
+                        <i class="fas fa-rocket fa-2x text-info mt-1"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-2">Innovation-Driven</h5>
+                        <p class="text-muted small">We leverage latest technologies and best practices for optimal results.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="d-flex gap-3">
+                    <div>
+                        <i class="fas fa-money-bill fa-2x text-success mt-1"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-2">Cost-Effective Solutions</h5>
+                        <p class="text-muted small">Competitive pricing without compromising on quality and service delivery.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="d-flex gap-3">
+                    <div>
+                        <i class="fas fa-headset fa-2x text-warning mt-1"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-2">Dedicated Support</h5>
+                        <p class="text-muted small">Responsive customer service and ongoing technical support throughout projects.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="d-flex gap-3">
+                    <div>
+                        <i class="fas fa-chart-line fa-2x text-danger mt-1"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-2">Results-Oriented</h5>
+                        <p class="text-muted small">Focus on delivering measurable outcomes and business growth for our clients.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Service Teams Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="h1 mb-3">Our Specialized Service Teams</h2>
+            <p class="lead text-muted">Dedicated experts in each industry sector</p>
+        </div>
+
+        <div class="row g-4">
+            {% for key, service in service_apps.items %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <i class="fas {{ service.icon }} fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">{{ service.name }}</h5>
+                            <p class="card-text text-muted">{{ service.description }}</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pt-0">
+                            <a href="{{ service.url }}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-arrow-right me-2"></i>Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="h1 mb-4">Interested in Working Together?</h2>
+        <p class="lead mb-4">
+            Let's discuss how we can help your business achieve its goals.
+        </p>
+        <a href="{% url 'contact' %}" class="btn btn-light btn-lg">
+            <i class="fas fa-envelope me-2"></i>Get in Touch
+        </a>
     </div>
 </section>
 {% endblock %}
-
