@@ -24,8 +24,8 @@ urlpatterns = [
     # Admin interface
     path('admin/', admin.site.urls),
 
-    # Main website
-    path('', include('website.urls')),
+    # Main website (namespaced)
+    path('', include(('website.urls', 'website'), namespace='website')),
 
     # Service-specific apps
     path('telecommunications/', include('telecommunications.urls')),

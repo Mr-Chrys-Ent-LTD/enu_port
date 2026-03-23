@@ -215,7 +215,7 @@ def contact(request):
 
             messages.success(
                 request, 'Your message has been sent successfully! We will get back to you soon.')
-            return redirect('contact')
+            return redirect('website:contact')
     else:
         form = ContactForm()
 

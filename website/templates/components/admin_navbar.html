@@ -1,0 +1,18 @@
+<!-- Admin Navigation Bar (Only visible to authenticated staff) -->
+{% if user.is_authenticated and user.is_staff %}
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="navbar-brand">
+            <i class="fas fa-shield-alt me-2"></i>Admin Panel
+        </div>
+        <div class="ms-auto">
+            <a href="{% url 'inquiries:admin_dashboard' %}" class="btn btn-sm btn-outline-light">
+                <i class="fas fa-inbox me-2"></i>Enquiries & Messages
+            </a>
+            <a href="/admin/" class="btn btn-sm btn-outline-light ms-2">
+                <i class="fas fa-cog me-2"></i>Django Admin
+            </a>
+        </div>
+    </div>
+</nav>
+{% endif %}

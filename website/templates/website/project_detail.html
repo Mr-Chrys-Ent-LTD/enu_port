@@ -235,7 +235,7 @@
                     </h4>
                     <div class="d-flex flex-column gap-3">
                         {% for rel_project in related_projects %}
-                            <a href="{% url 'project_detail' rel_project.slug %}" class="card border-0 shadow-sm text-decoration-none text-dark transition-all">
+                            <a href="{% url 'website:project_detail' rel_project.slug %}" class="card border-0 shadow-sm text-decoration-none text-dark transition-all">
                                 {% if rel_project.image %}
                                     <img src="{{ rel_project.image.url }}" class="card-img-top" alt="{{ rel_project.title }}" style="height: 150px; object-fit: cover;">
                                 {% else %}
@@ -251,7 +251,7 @@
                             </a>
                         {% endfor %}
                     </div>
-                    <a href="{% url 'projects' %}" class="btn btn-outline-primary w-100 mt-3">
+                    <a href="{% url 'website:projects' %}" class="btn btn-outline-primary w-100 mt-3">
                         View All Projects
                     </a>
                 </div>

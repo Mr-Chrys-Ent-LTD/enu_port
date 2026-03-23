@@ -43,7 +43,7 @@
                             </ul>
                         </div>
                         <div class="card-footer bg-transparent border-0 pt-0">
-                            <a href="{% url 'contact' %}" class="btn btn-sm btn-primary">
+                            <a href="{% url 'website:contact' %}" class="btn btn-sm btn-primary">
                                 Inquire About This Service
                             </a>
                         </div>
@@ -236,7 +236,7 @@
             Let's discuss which of our services can best help your organization succeed.
         </p>
         <div class="d-flex gap-3 justify-content-center flex-wrap">
-            <a href="{% url 'contact' %}" class="btn btn-light btn-lg">
+            <a href="{% url 'website:contact' %}" class="btn btn-light btn-lg">
                 <i class="fas fa-envelope me-2"></i>Request a Quote
             </a>
             <a href="https://wa.me/{{ company.whatsapp|cut:' '|cut:'+' }}" class="btn btn-success btn-lg" target="_blank">
