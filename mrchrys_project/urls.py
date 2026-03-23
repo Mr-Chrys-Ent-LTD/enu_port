@@ -13,6 +13,9 @@ URL Patterns:
 - Engineering: /engineering/
 - Logistics: /logistics/
 - General Contracting: /contracting/
+- Electrical & Power: /electrical-power/
+- Entertainment & Media: /entertainment-media/
+- Training & Consulting: /training-consulting/
 - Service Inquiries: /inquiries/ (shared across all services)
 """
 from django.contrib import admin
@@ -34,6 +37,9 @@ urlpatterns = [
     path('engineering/', include('engineering.urls')),
     path('logistics/', include('logistics.urls')),
     path('contracting/', include('contracting.urls')),
+    path('electrical-power/', include('electrical_power.urls')),
+    path('entertainment-media/', include('entertainment_media.urls')),
+    path('training-consulting/', include('training_consulting.urls')),
 
     # Shared inquiries app
     path('inquiries/', include('inquiries.urls')),

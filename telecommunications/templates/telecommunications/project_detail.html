@@ -86,11 +86,14 @@
 
                 <!-- Description Section -->
                 <div class="card border-0 shadow-sm mb-5">
+                    <div style="height:4px; background:linear-gradient(90deg,#ff6b35,#f7931e);"></div>
                     <div class="card-body">
-                        <h3 class="card-title mb-4">Project Description</h3>
-                        <p class="card-text lead" style="line-height: 1.8; color: #495057;">
-                            {{ project.description }}
-                        </p>
+                        <h3 class="card-title mb-4">
+                            <i class="fas fa-file-alt me-3" style="color: #ff6b35;"></i>Project Description
+                        </h3>
+                        <div class="prose" style="line-height:2; font-size:1.05rem; color:#333; text-align:justify;">
+                            {{ project.description|linebreaks }}
+                        </div>
                     </div>
                 </div>
 

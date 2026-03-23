@@ -108,11 +108,14 @@
 
                 <!-- Description -->
                 <div class="card border-0 shadow-sm mb-5">
+                    <div style="height:4px; background:linear-gradient(90deg,#0d6efd,#00d4ff);"></div>
                     <div class="card-body">
-                        <h3 class="mb-4">Project Description</h3>
-                        <p class="lead" style="line-height:1.8;">
-                            {{ project.description }}
-                        </p>
+                        <h3 class="mb-4">
+                            <i class="fas fa-file-alt me-3 text-primary"></i>Project Description
+                        </h3>
+                        <div class="prose" style="line-height:2; font-size:1.05rem; color:#333; text-align:justify;">
+                            {{ project.description|linebreaks }}
+                        </div>
                     </div>
                 </div>
 

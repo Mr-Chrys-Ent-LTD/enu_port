@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project.title }} - {{ service_name }} - {{ company.name }}{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb Navigation -->
+<section class="bg-light py-3 border-bottom">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'website:home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'electrical_power:index' %}">{{ service_name }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ project.title }}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Project Header -->
+<section class="page-header" style="background: linear-gradient(135deg, #ff9800 0%, #ffc107 100%);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold text-white mb-3">{{ project.title }}</h1>
+                <p class="lead text-light">{{ service_name }} Project Details</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <div class="display-large-icon" style="font-size: 5rem; color: rgba(255,255,255,0.3);">
+                    <i class="fas fa-bolt"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Featured Image -->
+{% if project.featured_image %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <img src="{{ project.featured_image.url }}" alt="{{ project.title }}" class="img-fluid rounded shadow-sm" style="width:100%; height:auto;">
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Project Details -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-5">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Project Info Cards -->
+                <div class="row g-3 mb-5">
+                    {% if project.client %}
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div style="height:3px; background:#ff9800;"></div>
+                            <div class="card-body">
+                                <h6 class="card-title text-muted small mb-2 fw-bold">Client</h6>
+                                <p class="card-text h5 mb-0">
+                                    <i class="fas fa-building me-2 text-warning"></i>{{ project.client }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if project.completion_date %}
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div style="height:3px; background:#ffc107;"></div>
+                            <div class="card-body">
+                                <h6 class="card-title text-muted small mb-2 fw-bold">Completion Date</h6>
+                                <p class="card-text h5 mb-0">
+                                    <i class="fas fa-calendar-alt me-2 text-warning"></i>{{ project.completion_date|date:"F Y" }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Description -->
+                {% if project.description %}
+                <div class="card border-0 shadow-sm mb-5">
+                    <div style="height:4px; background:linear-gradient(90deg,#ff9800,#ffc107);"></div>
+                    <div class="card-body">
+                        <h3 class="card-title mb-4">
+                            <i class="fas fa-file-alt me-3 text-warning"></i>Project Overview
+                        </h3>
+                        <div class="prose" style="line-height:2; font-size:1.05rem; color:#333; text-align:justify;">
+                            {{ project.description|linebreaks }}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Results / Outcome -->
+                {% if project.results %}
+                <div class="card border-0 shadow-sm mb-5" style="background: linear-gradient(135deg, rgba(255,152,0,0.05), rgba(255,193,7,0.05));">
+                    <div style="height:4px; background:linear-gradient(90deg,#ff9800,#ffc107);"></div>
+                    <div class="card-body">
+                        <h3 class="card-title mb-4">
+                            <i class="fas fa-trophy me-3 text-warning"></i>Project Outcome
+                        </h3>
+                        <div class="alert border-0 mb-0" style="background-color: rgba(255,193,7,0.1);">
+                            <p class="card-text" style="line-height:1.8;">{{ project.results }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- CTA -->
+                <div class="card border-0 shadow-sm mb-5" style="background: linear-gradient(135deg,#ff9800 0%,#ffc107 100%);">
+                    <div class="card-body text-center text-white py-5">
+                        <h4 class="card-title mb-3">Get Your Electrical Project Done</h4>
+                        <p class="card-text mb-4">Contact our experts to plan and execute your next project efficiently.</p>
+                        <a href="{% url 'inquiries:submit_service' 'electrical_power' %}" class="btn btn-light btn-lg">
+                            <i class="fas fa-envelope me-2"></i>Request a Quote
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Quick Info Card -->
+                <div class="card border-0 shadow-sm mb-4 sticky-top" style="top:20px;">
+                    <div style="height:4px; background: linear-gradient(90deg,#ff9800,#ffc107);"></div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold mb-4">Quick Information</h5>
+                        {% if project.client %}
+                        <div class="mb-3">
+                            <p class="text-muted small mb-1">Client</p>
+                            <p class="mb-0 fw-bold">{{ project.client }}</p>
+                        </div>
+                        {% endif %}
+                        {% if project.completion_date %}
+                        <div class="mb-3">
+                            <p class="text-muted small mb-1">Completed</p>
+                            <p class="mb-0 fw-bold">{{ project.completion_date|date:"M Y" }}</p>
+                        </div>
+                        {% endif %}
+                        <div class="mb-4">
+                            <p class="text-muted small mb-1">Service</p>
+                            <p class="mb-0 fw-bold">{{ service_name }}</p>
+                        </div>
+
+                        <hr>
+                        <a href="{% url 'inquiries:submit_service' 'electrical_power' %}" class="btn btn-warning w-100 mb-2">
+                            <i class="fas fa-envelope me-2"></i>Get Similar Service
+                        </a>
+                        <a href="{% url 'electrical_power:index' %}" class="btn btn-outline-warning w-100">
+                            <i class="fas fa-arrow-right me-2"></i>All Projects
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Related Info Card -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold mb-3">
+                            <i class="fas fa-bolt text-warning me-2"></i>Need Similar Services?
+                        </h5>
+                        <p class="small text-muted">
+                            If you're interested in electrical & power solutions similar to this project, we'd be happy to discuss your requirements and provide a tailored solution.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

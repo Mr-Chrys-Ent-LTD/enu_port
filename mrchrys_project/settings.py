@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'engineering',
     'logistics',
     'contracting',
+    'electrical_power',
+    'entertainment_media',
+    'training_consulting',
 ]
 
 MIDDLEWARE = [

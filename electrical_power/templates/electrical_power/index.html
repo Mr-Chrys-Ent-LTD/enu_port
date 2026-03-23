@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ service_name }} - {{ company.name }} Ent{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<section class="page-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-5 fw-bold text-white mb-3">{{ service_name }}</h1>
+                <p class="lead text-light">
+                    Reliable {{ service_name|lower }} solutions for modern infrastructure
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Overview -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+
+            <div class="col-lg-6">
+                <h2 class="h1 mb-4">{{ service_name }} Services</h2>
+
+                <p class="lead mb-3">
+                    {{ company.name }} provides professional electrical and power solutions across residential, commercial, and industrial sectors.
+                </p>
+
+                <p class="mb-4">
+                    Our team ensures safe, efficient, and scalable systems — from installation to maintenance and optimization.
+                </p>
+
+                <a href="{% url 'inquiries:submit_service' 'electrical_power' %}" 
+                   class="btn btn-primary btn-lg">
+                    <i class="fas fa-envelope me-2"></i>Request Quote
+                </a>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="ratio ratio-16x9">
+                    <div class="bg-light rounded d-flex align-items-center justify-content-center">
+                        <div class="text-center text-muted">
+                            <img src="{% static 'images/electrical.jpg' %}" alt="Electrical Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Expertise -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="h1 mb-3">Our Electrical Expertise</h2>
+        </div>
+
+        <div class="row g-4">
+            {% for offering in offerings %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm transition-all">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-{{ offering.icon }} fa-2x text-warning"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">{{ offering.title }}</h5>
+                        <p class="card-text text-muted">{{ offering.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Projects -->
+{% if projects %}
+<section class="py-5">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <h2 class="h1 mb-3">Completed Projects</h2>
+            <p class="lead text-muted">Our electrical and power implementations</p>
+        </div>
+
+        <div class="row g-4">
+            {% for project in projects %}
+            <div class="col-lg-4">
+
+                <a href="{% url 'electrical_power:project_detail' project.slug %}" 
+                   class="text-decoration-none">
+
+                    <div class="card h-100 border-0 shadow-sm transition-all">
+
+                        {% if project.featured_image %}
+                        <img src="{{ project.featured_image.url }}" 
+                             class="card-img-top" 
+                             style="height:200px; object-fit:cover;">
+                        {% else %}
+                        <div style="height:200px; background:linear-gradient(135deg,#ff9800,#ffc107); display:flex; align-items:center; justify-content:center;">
+                            <i class="fas fa-bolt fa-4x text-white opacity-50"></i>
+                        </div>
+                        {% endif %}
+
+                        <div class="card-body d-flex flex-column">
+
+                            <h5 class="card-title fw-bold text-warning">
+                                {{ project.title }}
+                            </h5>
+
+                            {% if project.client %}
+                            <p class="small text-secondary mb-2">
+                                <i class="fas fa-building me-2"></i>
+                                <strong>Client:</strong> {{ project.client }}
+                            </p>
+                            {% endif %}
+
+                            {% if project.completion_date %}
+                            <p class="small text-secondary mb-3">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                {{ project.completion_date|date:"M Y" }}
+                            </p>
+                            {% endif %}
+
+                            <p class="small text-secondary flex-grow-1">
+                                {{ project.description|truncatewords:25 }}
+                            </p>
+
+                            {% if project.result %}
+                            <div class="alert alert-success small py-2 mt-3">
+                                <i class="fas fa-check-circle me-2"></i>
+                                {{ project.result|truncatewords:15 }}
+                            </div>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="card-footer bg-white border-top">
+                            <span class="btn btn-outline-warning btn-sm w-100">
+                                View Details <i class="fas fa-arrow-right ms-2"></i>
+                            </span>
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA -->
+<section class="py-5 bg-warning text-dark">
+    <div class="container text-center">
+        <h2 class="h1 mb-4">Let’s Power Your Next Project</h2>
+        <p class="lead mb-4">
+            Work with experts in electrical and power systems
+        </p>
+
+        <a href="{% url 'inquiries:submit_service' 'electrical_power' %}" 
+           class="btn btn-dark btn-lg">
+            <i class="fas fa-phone me-2"></i>Get Started
+        </a>
+    </div>
+</section>
+
+<style>
+.transition-all:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.15) !important;
+}
+
+.transition-all:hover .card-title {
+    color: #cc7a00 !important;
+}
+</style>
+
+{% endblock %}

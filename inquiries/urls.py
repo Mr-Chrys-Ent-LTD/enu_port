@@ -37,7 +37,7 @@ urlpatterns = [
     path('admin/message/<int:message_id>/delete/',
          admin_views.delete_contact_message, name='delete_contact_message'),
 
-    # Project management
+    # Project management (generic projects)
     path('admin/projects/', admin_views.projects_list, name='projects_list'),
     path('admin/create-project/', admin_views.create_project, name='create_project'),
     path('admin/project/<int:project_id>/',
@@ -46,4 +46,14 @@ urlpatterns = [
          admin_views.edit_project, name='edit_project'),
     path('admin/project/<int:project_id>/delete/',
          admin_views.delete_project, name='delete_project'),
+
+    # Service-specific project management
+    path('admin/service-projects/', admin_views.service_projects_list,
+         name='service_projects_list'),
+    path('admin/create-service-project/', admin_views.create_service_project,
+         name='create_service_project'),
+    path('admin/service-project/<str:service_type>/<int:project_id>/edit/',
+         admin_views.edit_service_project, name='edit_service_project'),
+    path('admin/service-project/<str:service_type>/<int:project_id>/delete/',
+         admin_views.delete_service_project, name='delete_service_project'),
 ]

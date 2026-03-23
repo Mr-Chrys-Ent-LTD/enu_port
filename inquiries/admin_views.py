@@ -10,7 +10,27 @@ from django.utils import timezone
 from website.models import ContactMessage, Project
 from website.forms import ContactForm, ProjectForm
 from .models import ServiceInquiry
-from .forms import ServiceInquiryForm
+from .forms import (
+    ServiceInquiryForm,
+    SecurityProjectForm,
+    TelecomProjectForm,
+    DevProjectForm,
+    EngineeringProjectForm,
+    LogisticsProjectForm,
+    ContractingProjectForm,
+    ElectricalProjectForm,
+    EntertainmentProjectForm,
+    TrainingProjectForm
+)
+from cybersecurity.models import SecurityProject
+from telecommunications.models import TelecomProject
+from software_dev.models import DevProject
+from engineering.models import EngineeringProject
+from logistics.models import LogisticsProject
+from contracting.models import ContractingProject
+from electrical_power.models import ElectricalProject
+from entertainment_media.models import EntertainmentProject
+from training_consulting.models import TrainingProject
 
 
 def is_admin(user):
@@ -372,3 +392,290 @@ def delete_project(request, project_id):
     messages.success(
         request, f'Project "{project_title}" deleted successfully.')
     return redirect('inquiries:projects_list')
+
+
+# ==================== SERVICE-SPECIFIC PROJECT MANAGEMENT ====================
+
+@login_required
+@user_passes_test(is_admin)
+def service_projects_list(request):
+    """View all service-specific projects across all services."""
+    # Collect all projects from all services
+    security_projects = SecurityProject.objects.all()
+    telecom_projects = TelecomProject.objects.all()
+    dev_projects = DevProject.objects.all()
+    engineering_projects = EngineeringProject.objects.all()
+    logistics_projects = LogisticsProject.objects.all()
+    contracting_projects = ContractingProject.objects.all()
+    electrical_projects = ElectricalProject.objects.all()
+    entertainment_projects = EntertainmentProject.objects.all()
+    training_projects = TrainingProject.objects.all()
+
+    # Combine all into a single list with service info
+    all_projects = []
+
+    for project in security_projects:
+        all_projects.append({
+            'id': project.id,
+            'title': project.title,
+            'client': project.client,
+            'completion_date': project.completion_date,
+            'service': 'Cybersecurity',
+            'service_slug': 'cybersecurity',
+            'model_name': 'securityproject'
+        })
+
+    for project in telecom_projects:
+        all_projects.append({
+            'id': project.id,
+            'title': project.title,
+            'client': project.client,
+            'completion_date': project.completion_date,
+            'service': 'Telecommunications',
+            'service_slug': 'telecommunications',
+            'model_name': 'telecomproject'
+        })
+
+    for project in dev_projects:
+        all_projects.append({
+            'id': project.id,
+            'title': project.title,
+            'client': project.client,
+            'completion_date': project.completion_date,
+            'service': 'Software Development',
+            'service_slug': 'software_dev',
+            'model_name': 'devproject'
+        })
+
+    for project in engineering_projects:
+        all_projects.append({
+            'id': project.id,
+            'title': project.title,
+            'client': project.client,
+            'completion_date': project.completion_date,
+            'service': 'Engineering',
+            'service_slug': 'engineering',
+            'model_name': 'engineeringproject'
+        })
+
+    for project in logistics_projects:
+        all_projects.append({
+            'id': project.id,
+            'title': project.title,
+            'client': project.client,
+            'completion_date': project.completion_date,
+            'service': 'Logistics',
+            'service_slug': 'logistics',
+            'model_name': 'logisticsproject'
+        })
+
+    for project in contracting_projects:
+        all_projects.append({
+            'id': project.id,
+            'title': project.title,
+            'client': project.client,
+            'completion_date': project.completion_date,
+            'service': 'Contracting',
+            'service_slug': 'contracting',
+            'model_name': 'contractingproject'
+        })
+
+    for project in electrical_projects:
+        all_projects.append({
+            'id': project.id,
+            'title': project.title,
+            'client': project.client,
+            'completion_date': project.completion_date,
+            'service': 'Electrical & Power',
+            'service_slug': 'electrical_power',
+            'model_name': 'electricalproject'
+        })
+
+    for project in entertainment_projects:
+        all_projects.append({
+            'id': project.id,
+            'title': project.title,
+            'client': project.client,
+            'completion_date': project.completion_date,
+            'service': 'Entertainment & Media',
+            'service_slug': 'entertainment_media',
+            'model_name': 'entertainmentproject'
+        })
+
+    for project in training_projects:
+        all_projects.append({
+            'id': project.id,
+            'title': project.title,
+            'client': project.client,
+            'completion_date': project.completion_date,
+            'service': 'Training & Consulting',
+            'service_slug': 'training_consulting',
+            'model_name': 'trainingproject'
+        })
+
+    # Sort by completion date (newest first)
+    all_projects.sort(key=lambda x: x['completion_date'] if x['completion_date'] else '',
+                      reverse=True)
+
+    context = {
+        'projects': all_projects,
+    }
+    return render(request, 'inquiries/service_projects_list.html', context)
+
+
+@login_required
+@user_passes_test(is_admin)
+def create_service_project(request):
+    """Create a service-specific project with service selection."""
+    service_type = request.GET.get('service', '').lower()
+
+    # Map service types to forms
+    form_map = {
+        'cybersecurity': SecurityProjectForm,
+        'telecommunications': TelecomProjectForm,
+        'software_dev': DevProjectForm,
+        'engineering': EngineeringProjectForm,
+        'logistics': LogisticsProjectForm,
+        'contracting': ContractingProjectForm,
+        'electrical_power': ElectricalProjectForm,
+        'entertainment_media': EntertainmentProjectForm,
+        'training_consulting': TrainingProjectForm,
+    }
+
+    # If no service selected, show selection page
+    if request.method == 'GET' and not service_type:
+        services = [
+            {'name': 'Cybersecurity', 'slug': 'cybersecurity', 'icon': '🔒'},
+            {'name': 'Telecommunications', 'slug': 'telecommunications', 'icon': '📡'},
+            {'name': 'Software Development', 'slug': 'software_dev', 'icon': '💻'},
+            {'name': 'Engineering', 'slug': 'engineering', 'icon': '⚙️'},
+            {'name': 'Logistics', 'slug': 'logistics', 'icon': '📦'},
+            {'name': 'Contracting', 'slug': 'contracting', 'icon': '🏗️'},
+            {'name': 'Electrical & Power', 'slug': 'electrical_power', 'icon': '⚡'},
+            {'name': 'Entertainment & Media',
+                'slug': 'entertainment_media', 'icon': '🎬'},
+            {'name': 'Training & Consulting',
+                'slug': 'training_consulting', 'icon': '📚'},
+        ]
+        context = {
+            'services': services,
+            'title': 'Select Service Type',
+        }
+        return render(request, 'inquiries/select_service.html', context)
+
+    # Get the form class for the selected service
+    if service_type not in form_map:
+        messages.error(request, 'Invalid service type selected.')
+        return redirect('inquiries:create_service_project')
+
+    FormClass = form_map[service_type]
+
+    if request.method == 'POST':
+        form = FormClass(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save()
+            messages.success(
+                request, f'Project "{project.title}" created successfully in {service_type.replace("_", " ").title()}!')
+            return redirect('inquiries:service_projects_list')
+    else:
+        form = FormClass()
+
+    context = {
+        'form': form,
+        'title': f'Create {service_type.replace("_", " ").title()} Project',
+        'button_text': 'Create Project',
+        'service_type': service_type,
+    }
+    return render(request, 'inquiries/create_form.html', context)
+
+
+@login_required
+@user_passes_test(is_admin)
+def edit_service_project(request, service_type, project_id):
+    """Edit a service-specific project."""
+    service_type = service_type.lower()
+
+    # Map service types to models and forms
+    model_map = {
+        'cybersecurity': SecurityProject,
+        'telecommunications': TelecomProject,
+        'software_dev': DevProject,
+        'engineering': EngineeringProject,
+        'logistics': LogisticsProject,
+        'contracting': ContractingProject,
+        'electrical_power': ElectricalProject,
+        'entertainment_media': EntertainmentProject,
+        'training_consulting': TrainingProject,
+    }
+
+    form_map = {
+        'cybersecurity': SecurityProjectForm,
+        'telecommunications': TelecomProjectForm,
+        'software_dev': DevProjectForm,
+        'engineering': EngineeringProjectForm,
+        'logistics': LogisticsProjectForm,
+        'contracting': ContractingProjectForm,
+        'electrical_power': ElectricalProjectForm,
+        'entertainment_media': EntertainmentProjectForm,
+        'training_consulting': TrainingProjectForm,
+    }
+
+    if service_type not in model_map:
+        messages.error(request, 'Invalid service type.')
+        return redirect('inquiries:service_projects_list')
+
+    Model = model_map[service_type]
+    FormClass = form_map[service_type]
+    project = get_object_or_404(Model, id=project_id)
+
+    if request.method == 'POST':
+        form = FormClass(request.POST, request.FILES, instance=project)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Project updated successfully!')
+            return redirect('inquiries:service_projects_list')
+    else:
+        form = FormClass(instance=project)
+
+    context = {
+        'form': form,
+        'title': f'Edit Project',
+        'button_text': 'Update Project',
+        'project': project,
+        'service_type': service_type,
+    }
+    return render(request, 'inquiries/create_form.html', context)
+
+
+@login_required
+@user_passes_test(is_admin)
+@require_http_methods(["POST"])
+def delete_service_project(request, service_type, project_id):
+    """Delete a service-specific project."""
+    service_type = service_type.lower()
+
+    # Map service types to models
+    model_map = {
+        'cybersecurity': SecurityProject,
+        'telecommunications': TelecomProject,
+        'software_dev': DevProject,
+        'engineering': EngineeringProject,
+        'logistics': LogisticsProject,
+        'contracting': ContractingProject,
+        'electrical_power': ElectricalProject,
+        'entertainment_media': EntertainmentProject,
+        'training_consulting': TrainingProject,
+    }
+
+    if service_type not in model_map:
+        messages.error(request, 'Invalid service type.')
+        return redirect('inquiries:service_projects_list')
+
+    Model = model_map[service_type]
+    project = get_object_or_404(Model, id=project_id)
+    project_title = project.title
+    project.delete()
+
+    messages.success(
+        request, f'Project "{project_title}" deleted successfully.')
+    return redirect('inquiries:service_projects_list')
