@@ -6,4 +6,6 @@ app_name = 'telecommunications'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('project/<slug:project_slug>/',
+         views.project_detail, name='project_detail'),
 ]

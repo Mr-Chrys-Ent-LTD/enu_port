@@ -1,5 +1,6 @@
 """Views for telecommunications service."""
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.utils.text import slugify
 from .models import TelecomOffering, TelecomProject
 
 COMPANY_INFO = {
@@ -20,6 +21,12 @@ def index(request):
     offerings = TelecomOffering.objects.all()
     projects = TelecomProject.objects.all()
 
+    # Ensure all projects have slugs
+    for project in projects:
+        if not project.slug:
+            project.slug = slugify(project.title)
+            project.save()
+
     context = {
         'service_name': 'Telecommunications',
         'service_slug': 'telecommunications',
@@ -30,3 +37,13 @@ def index(request):
     }
 
     return render(request, 'telecommunications/index.html', context)
+
+
+def project_detail(request, project_slug):
+    """Telecommunications project detail page."""
+    project = get_object_or_404(TelecomProject, slug=project_slug)
+    context = {
+        'service_name': 'Telecommunications',
+        'project': project,
+    }
+    return render(request, 'telecommunications/project_detail.html', context)

@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project.title }} - {{ service_name }} - {{ company.name }}{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb Navigation -->
+<section class="bg-light py-3 border-bottom">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'website:home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'cybersecurity:index' %}">Cybersecurity</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ project.title }}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Project Header -->
+<section class="page-header" style="background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold text-white mb-3">{{ project.title }}</h1>
+                <p class="lead text-light">{{ service_name }} Project Details</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <div class="display-large-icon" style="font-size: 5rem; color: rgba(255,255,255,0.3);">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Featured Image -->
+{% if project.featured_image %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <img src="{{ project.featured_image.url }}" alt="{{ project.title }}" class="img-fluid rounded shadow-sm" style="width: 100%; height: auto;">
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Project Details -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-5">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Project Overview Cards -->
+                <div class="row g-3 mb-5">
+                    {% if project.client %}
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div style="height: 3px; background: #c41e3a;"></div>
+                            <div class="card-body">
+                                <h6 class="card-title text-muted text-uppercase small mb-2 fw-bold">Client</h6>
+                                <p class="card-text h5 mb-0">
+                                    <i class="fas fa-building me-2" style="color: #c41e3a;"></i>{{ project.client }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if project.completion_date %}
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div style="height: 3px; background: #8b0000;"></div>
+                            <div class="card-body">
+                                <h6 class="card-title text-muted text-uppercase small mb-2 fw-bold">Completion Date</h6>
+                                <p class="card-text h5 mb-0">
+                                    <i class="fas fa-calendar-alt me-2" style="color: #8b0000;"></i>{{ project.completion_date|date:"F Y" }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Description Section -->
+                <div class="card border-0 shadow-sm mb-5">
+                    <div class="card-body">
+                        <h3 class="card-title mb-4">Project Description</h3>
+                        <p class="card-text lead" style="line-height: 1.8; color: #495057;">
+                            {{ project.description }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                {% if project.result %}
+                <div class="card border-0 shadow-sm mb-5" style="background: linear-gradient(135deg, rgba(196, 30, 58, 0.05) 0%, rgba(139, 0, 0, 0.05) 100%);">
+                    <div style="height: 4px; background: linear-gradient(90deg, #c41e3a, #8b0000);"></div>
+                    <div class="card-body">
+                        <h3 class="card-title mb-4">
+                            <i class="fas fa-trophy me-3" style="color: #c41e3a;"></i>Project Outcome
+                        </h3>
+                        <div class="alert border-0 mb-0" style="background-color: rgba(196, 30, 58, 0.1); color: #495057;">
+                            <p class="card-text" style="line-height: 1.8; font-size: 1.1rem;">
+                                {{ project.result }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Call to Action -->
+                <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);">
+                    <div class="card-body text-white text-center py-5">
+                        <h4 class="card-title mb-3">Secure Your Operations</h4>
+                        <p class="card-text mb-4">
+                            Let our cybersecurity experts protect your critical infrastructure.
+                        </p>
+                        <a href="{% url 'inquiries:submit_service' 'cybersecurity' %}" class="btn btn-light btn-lg">
+                            <i class="fas fa-envelope me-2"></i>Request a Quote
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Quick Facts -->
+                <div class="card border-0 shadow-sm mb-4" style="position: sticky; top: 20px;">
+                    <div style="height: 4px; background: linear-gradient(90deg, #c41e3a, #8b0000);"></div>
+                    <div class="card-body">
+                        <h5 class="card-title mb-4 fw-bold">Quick Facts</h5>
+                        
+                        <div class="mb-4 pb-4 border-bottom">
+                            <h6 class="text-muted small text-uppercase fw-bold mb-2">Category</h6>
+                            <p class="mb-0">
+                                <span class="badge text-white fs-6" style="background-color: #c41e3a;">{{ service_name }}</span>
+                            </p>
+                        </div>
+
+                        {% if project.client %}
+                        <div class="mb-4 pb-4 border-bottom">
+                            <h6 class="text-muted small text-uppercase fw-bold mb-2">Client</h6>
+                            <p class="mb-0 small">{{ project.client }}</p>
+                        </div>
+                        {% endif %}
+
+                        {% if project.completion_date %}
+                        <div class="mb-4">
+                            <h6 class="text-muted small text-uppercase fw-bold mb-2">Project Duration</h6>
+                            <p class="mb-0 small">Completed in {{ project.completion_date|date:"F Y" }}</p>
+                        </div>
+                        {% endif %}
+
+                        <div class="mt-4 pt-4 border-top">
+                            <a href="{% url 'cybersecurity:index' %}" class="btn btn-sm w-100" style="background-color: #c41e3a; color: white;">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Projects
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related Services -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4 fw-bold">Our Services</h5>
+                        <div class="list-group list-group-flush">
+                            <a href="{% url 'cybersecurity:index' %}" class="list-group-item list-group-item-action border-0 px-0 py-2">
+                                <i class="fas fa-bug me-2" style="color: #c41e3a;"></i>Security Audits
+                            </a>
+                            <a href="{% url 'cybersecurity:index' %}" class="list-group-item list-group-item-action border-0 px-0 py-2">
+                                <i class="fas fa-check-double me-2" style="color: #c41e3a;"></i>Threat Testing
+                            </a>
+                            <a href="{% url 'cybersecurity:index' %}" class="list-group-item list-group-item-action border-0 px-0 py-2">
+                                <i class="fas fa-eye me-2" style="color: #c41e3a;"></i>Monitoring
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="card border-0 shadow-lg" style="background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);">
+            <div class="card-body text-white p-5 text-center">
+                <h3 class="card-title mb-3">Protect Your Business Today</h3>
+                <p class="card-text lead mb-4">
+                    Our comprehensive security solutions keep your data and infrastructure safe.
+                </p>
+                <div class="d-flex gap-2 justify-content-center flex-wrap">
+                    <a href="{% url 'inquiries:submit_service' 'cybersecurity' %}" class="btn btn-light btn-lg">
+                        <i class="fas fa-paper-plane me-2"></i>Contact Us
+                    </a>
+                    <a href="{% url 'cybersecurity:index' %}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Services
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

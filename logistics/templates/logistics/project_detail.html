@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project.title }} - {{ service_name }} - {{ company.name }}{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb Navigation -->
+<section class="bg-light py-3 border-bottom">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'website:home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'logistics:index' %}">Logistics</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ project.title }}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Project Header -->
+<section class="page-header" style="background: linear-gradient(135deg, #0d6efd 0%, #00d4ff 100%);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold text-white mb-3">{{ project.title }}</h1>
+                <p class="lead text-light">{{ service_name }} Project Details</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <div class="display-large-icon" style="font-size: 5rem; color: rgba(255,255,255,0.3);">
+                    <i class="fas fa-boxes"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Details -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-5">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Project Overview Cards -->
+                <div class="row g-3 mb-5">
+                    {% if project.client %}
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div style="height: 3px; background: #0d6efd;"></div>
+                            <div class="card-body">
+                                <h6 class="card-title text-muted text-uppercase small mb-2 fw-bold">Client</h6>
+                                <p class="card-text h5 mb-0">
+                                    <i class="fas fa-building me-2 text-primary"></i>{{ project.client }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if project.completion_date %}
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div style="height: 3px; background: #00d4ff;"></div>
+                            <div class="card-body">
+                                <h6 class="card-title text-muted text-uppercase small mb-2 fw-bold">Completion Date</h6>
+                                <p class="card-text h5 mb-0">
+                                    <i class="fas fa-calendar-alt me-2 text-info"></i>{{ project.completion_date|date:"F Y" }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Description Section -->
+                <div class="card border-0 shadow-sm mb-5">
+                    <div class="card-body">
+                        <h3 class="card-title mb-4">Project Description</h3>
+                        <p class="card-text lead" style="line-height: 1.8; color: #495057;">
+                            {{ project.description }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                {% if project.result %}
+                <div class="card border-0 shadow-sm mb-5" style="background: linear-gradient(135deg, rgba(25, 135, 84, 0.05) 0%, rgba(0, 212, 255, 0.05) 100%);">
+                    <div style="height: 4px; background: linear-gradient(90deg, #198754, #00d4ff);"></div>
+                    <div class="card-body">
+                        <h3 class="card-title mb-4">
+                            <i class="fas fa-trophy me-3 text-success"></i>Project Outcome
+                        </h3>
+                        <div class="alert alert-success border-0 mb-0" style="background-color: rgba(25, 135, 84, 0.1);">
+                            <p class="card-text" style="line-height: 1.8; color: #495057; font-size: 1.1rem;">
+                                {{ project.result }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Call to Action -->
+                <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #0d6efd 0%, #00d4ff 100%);">
+                    <div class="card-body text-white text-center py-5">
+                        <h4 class="card-title mb-3">Interested in Similar Solutions?</h4>
+                        <p class="card-text mb-4">
+                            Let our logistics experts help you achieve similar results for your operations.
+                        </p>
+                        <a href="{% url 'inquiries:submit_service' 'logistics' %}" class="btn btn-light btn-lg">
+                            <i class="fas fa-envelope me-2"></i>Request a Quote
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Quick Facts -->
+                <div class="card border-0 shadow-sm mb-4" style="position: sticky; top: 20px;">
+                    <div style="height: 4px; background: linear-gradient(90deg, #0d6efd, #00d4ff);"></div>
+                    <div class="card-body">
+                        <h5 class="card-title mb-4 fw-bold">Quick Facts</h5>
+                        
+                        <div class="mb-4 pb-4 border-bottom">
+                            <h6 class="text-muted small text-uppercase fw-bold mb-2">Category</h6>
+                            <p class="mb-0">
+                                <span class="badge bg-primary fs-6">{{ service_name }}</span>
+                            </p>
+                        </div>
+
+                        {% if project.client %}
+                        <div class="mb-4 pb-4 border-bottom">
+                            <h6 class="text-muted small text-uppercase fw-bold mb-2">Client Sector</h6>
+                            <p class="mb-0 small">Logistics & Supply Chain Management</p>
+                        </div>
+                        {% endif %}
+
+                        {% if project.completion_date %}
+                        <div class="mb-4">
+                            <h6 class="text-muted small text-uppercase fw-bold mb-2">Project Duration</h6>
+                            <p class="mb-0 small">Completed in {{ project.completion_date|date:"F Y" }}</p>
+                        </div>
+                        {% endif %}
+
+                        <div class="mt-4 pt-4 border-top">
+                            <a href="{% url 'logistics:index' %}" class="btn btn-outline-primary btn-sm w-100">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Projects
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related Services -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4 fw-bold">Related Services</h5>
+                        <div class="list-group list-group-flush">
+                            <a href="{% url 'logistics:index' %}" class="list-group-item list-group-item-action border-0 px-0 py-2">
+                                <i class="fas fa-warehouse me-2 text-primary"></i>Warehousing Solutions
+                            </a>
+                            <a href="{% url 'logistics:index' %}" class="list-group-item list-group-item-action border-0 px-0 py-2">
+                                <i class="fas fa-truck me-2 text-primary"></i>Distribution Services
+                            </a>
+                            <a href="{% url 'logistics:index' %}" class="list-group-item list-group-item-action border-0 px-0 py-2">
+                                <i class="fas fa-chart-line me-2 text-primary"></i>Supply Chain Optimization
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="card border-0 shadow-lg" style="background: linear-gradient(135deg, #0d6efd 0%, #00d4ff 100%);">
+            <div class="card-body text-white p-5 text-center">
+                <h3 class="card-title mb-3">Ready to Transform Your Logistics?</h3>
+                <p class="card-text lead mb-4">
+                    Our proven solutions can streamline your operations and improve your bottom line.
+                </p>
+                <div class="d-flex gap-2 justify-content-center flex-wrap">
+                    <a href="{% url 'inquiries:submit_service' 'logistics' %}" class="btn btn-light btn-lg">
+                        <i class="fas fa-paper-plane me-2"></i>Contact Us
+                    </a>
+                    <a href="{% url 'logistics:index' %}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Services
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

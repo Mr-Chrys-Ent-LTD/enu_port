@@ -14,14 +14,14 @@
                     Building Smart Solutions Across Technology, Telecom, Engineering & Beyond
                 </h1>
                 <p class="lead text-light mb-4">
-                    Mr Chrys Ent LTD is a multi-disciplinary company delivering innovative solutions in telecommunications, 
+                   {{ company.name }} Ent LTD is a multi-disciplinary company delivering innovative solutions in telecommunications, 
                     software development, cybersecurity, engineering, and general contracting across Nigeria.
                 </p>
                 <div class="d-flex gap-3 justify-content-center">
-                    <a href="{% url 'services' %}" class="btn btn-primary btn-lg">
+                    <a href="{% url 'website:services' %}" class="btn btn-primary btn-lg">
                         <i class="fas fa-briefcase me-2"></i>Explore Services
                     </a>
-                    <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg">
+                    <a href="{% url 'website:contact' %}" class="btn btn-outline-light btn-lg">
                         <i class="fas fa-envelope me-2"></i>Get in Touch
                     </a>
                 </div>
@@ -44,7 +44,7 @@
                     With expertise spanning multiple industries, we pride ourselves on delivering high-quality, innovative, 
                     and reliable solutions that empower businesses and communities to thrive in a dynamic digital landscape.
                 </p>
-                <a href="{% url 'about' %}" class="btn btn-primary mt-4">
+                <a href="{% url 'website:about' %}" class="btn btn-primary mt-4">
                     Learn More About Us <i class="fas fa-arrow-right ms-2"></i>
                 </a>
             </div>
@@ -84,7 +84,7 @@
                             </p>
                         </div>
                         <div class="card-footer bg-transparent border-0">
-                            <a href="{% url 'services' %}" class="btn btn-sm btn-primary">Learn More</a>
+                            <a href="{% url 'website:services' %}" class="btn btn-sm btn-primary">Learn More</a>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
         </div>
 
         <div class="text-center mt-5">
-            <a href="{% url 'services' %}" class="btn btn-primary btn-lg">
+            <a href="{% url 'website:services' %}" class="btn btn-primary btn-lg">
                 View All Services <i class="fas fa-arrow-right ms-2"></i>
             </a>
         </div>
@@ -134,7 +134,7 @@
 <section class="py-5 bg-light">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="h1 mb-3">Why Choose MRCHRYS?</h2>
+            <h2 class="h1 mb-3">Why Choose {{ company.name }}?</h2>
         </div>
 
         <div class="row g-4">
@@ -195,7 +195,7 @@
             Let's discuss how MRCHRYS ENT NIG LTD can help you achieve your goals.
         </p>
         <div class="d-flex gap-3 justify-content-center flex-wrap">
-            <a href="{% url 'contact' %}" class="btn btn-light btn-lg">
+            <a href="{% url 'website:contact' %}" class="btn btn-light btn-lg">
                 <i class="fas fa-envelope me-2"></i>Contact Us
             </a>
             <a href="https://wa.me/{{ company.whatsapp|cut:' '|cut:'+' }}" class="btn btn-success btn-lg" target="_blank">

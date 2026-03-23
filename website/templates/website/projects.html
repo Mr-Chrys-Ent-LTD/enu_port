@@ -4,251 +4,225 @@
 {% block title %}Projects - {{ company.name }} Ent{% endblock %}
 
 {% block content %}
-<!-- Page Header -->
+
+<!-- Header -->
 <section class="page-header">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8">
-                <h1 class="display-5 fw-bold text-white mb-3">Our Projects</h1>
-                <p class="lead text-light">Showcasing our successful implementations across various sectors</p>
-            </div>
-        </div>  
+        <h1 class="display-5 fw-bold text-white mb-3">Our Projects</h1>
+        <p class="lead text-light">Showcasing our successful implementations across various sectors</p>
     </div>
 </section>
 
-<!-- Projects Grid -->
+<!-- Projects -->
 <section class="py-5">
     <div class="container">
+
         {% if projects %}
-            <div class="row g-4">
-                {% for project in projects %}
-                <a href="{% url 'project_detail' project.slug %}" class="col-md-6 col-lg-4">
-                    <div class="card h-100 border-0 shadow-sm project-card">
+        <div class="row g-4">
+            {% for project in projects %}
+            <div class="col-lg-4">
+
+                <a href="{% url 'website:project_detail' project.slug %}" class="text-decoration-none">
+
+                    <div class="card h-100 border-0 shadow-sm project-card d-flex flex-column">
+
+                        <!-- Image -->
                         {% if project.image %}
-                            <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" style="height: 250px; object-fit: cover;">
+                            <img src="{{ project.image.url }}"
+                                 class="card-img-top"
+                                 style="height:220px;object-fit:cover;">
                         {% else %}
-                                <div class="bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
-                                    <div class="text-center text-muted">
-                                        <i class="fas fa-image fa-4x mb-2"></i>
-                                        <p>Project Image</p>
-                                    </div>
+                            <div style="height:220px;background:linear-gradient(135deg,#0d6efd,#003d82);display:flex;align-items:center;justify-content:center;">
+                                <i class="fas fa-folder-open fa-3x text-white opacity-50"></i>
+                            </div>
+                        {% endif %}
+
+                        <!-- Body -->
+                        <div class="card-body d-flex flex-column">
+
+                            <span class="badge bg-primary mb-2">{{ project.category }}</span>
+
+                            <h5 class="fw-bold text-primary">{{ project.title }}</h5>
+
+                            <p class="text-muted small mb-3 flex-grow-1">
+                                {{ project.description|truncatewords:25 }}
+                            </p>
+
+                            {% if project.client %}
+                                <p class="small text-secondary mb-1">
+                                    <i class="fas fa-building me-1 text-primary"></i>
+                                    {{ project.client }}
+                                </p>
+                            {% endif %}
+
+                            {% if project.completion_date %}
+                                <p class="small text-secondary mb-2">
+                                    <i class="fas fa-calendar me-1 text-primary"></i>
+                                    {{ project.completion_date|date:"M Y" }}
+                                </p>
+                            {% endif %}
+
+                            {% if project.result %}
+                                <div class="alert alert-success small py-2 px-2 mt-2 mb-0">
+                                    <strong>Outcome:</strong> {{ project.result|truncatewords:10 }}
                                 </div>
                             {% endif %}
-                            <div class="card-body">
-                                <span class="badge bg-primary mb-2">{{ project.category }}</span>
-                                <h5 class="card-title fw-bold">{{ project.title }}</h5>
-                                <p class="card-text text-muted small">{{ project.description|truncatewords:25 }}</p>
-                                
-                                {% if project.client %}
-                                    <p class="mb-2 small text-secondary">
-                                        <i class="fas fa-building me-1 text-primary"></i><strong>Client:</strong> {{ project.client }}
-                                    </p>
-                                {% endif %}
-                                
-                                {% if project.completion_date %}
-                                    <p class="mb-2 small text-secondary">
-                                        <i class="fas fa-calendar-alt me-1 text-primary"></i><strong>Completed:</strong> {{ project.completion_date|date:"M Y" }}
-                                    </p>
-                                {% endif %}
-                                
-                                {% if project.technologies %}
-                                    <p class="mb-2 small text-secondary">
-                                        <i class="fas fa-tools me-1 text-primary"></i><strong>Tech:</strong> {{ project.technologies|truncatewords:5 }}
-                                    </p>
-                                {% endif %}
-                                
-                                {% if project.result %}
-                                    <div class="alert alert-success small py-2 px-3 mt-3 mb-0" style="font-size: 0.85rem;">
-                                        <strong>Result:</strong> {{ project.result|truncatewords:15 }}
-                                    </div>
-                                {% endif %}
-                            </div>
-                            <div class="card-footer bg-transparent border-0">
-                                <a href="{% url 'project_detail' project.slug %}" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-info-circle me-1"></i>View Details
-                                </a>
-                            </div>
+
                         </div>
+
+                        <!-- Footer -->
+                        <div class="card-footer bg-white border-top text-center">
+                            <span class="btn btn-sm btn-outline-primary w-100">
+                                View Details <i class="fas fa-arrow-right ms-2"></i>
+                            </span>
+                        </div>
+
                     </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <div class="text-center py-5">
-                <i class="fas fa-folder-open fa-5x text-muted mb-3"></i>
-                <h4 class="text-muted">No Projects Yet</h4>
-                <p class="text-muted mb-4">Our portfolio of projects is being updated. Check back soon for showcases of our latest work!</p>
-                <a href="{% url 'services' %}" class="btn btn-primary">
-                    Explore Our Services
+
                 </a>
             </div>
+            {% endfor %}
+        </div>
+
+        {% else %}
+        <!-- Empty -->
+        <div class="text-center py-5">
+            <i class="fas fa-folder-open fa-5x text-muted mb-3"></i>
+            <h4 class="text-muted">No Projects Yet</h4>
+            <p class="text-muted mb-4">We are currently updating our portfolio.</p>
+            <a href="{% url 'services' %}" class="btn btn-primary">
+                Explore Services
+            </a>
+        </div>
         {% endif %}
+
     </div>
 </section>
 
-<!-- Project Categories Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="h1 mb-3">Our Expertise Areas</h2>
-            <p class="lead text-muted">We've successfully delivered projects across various sectors</p>
-        </div>
+<!-- Expertise -->
+<section id="expertise" class="py-5 bg-light">
+    <div class="container text-center mb-4">
+        <h2 class="h1 mb-3">Our Expertise Areas</h2>
+        <p class="lead text-muted">We deliver across multiple industries</p>
+    </div>
 
+    <div class="container">
         <div class="row g-4">
+
             <div class="col-md-6 col-lg-3">
-                <div class="text-center p-4 bg-white rounded shadow-sm">
+                <div class="p-4 bg-white rounded shadow-sm text-center">
                     <i class="fas fa-tower-cell fa-3x text-primary mb-3"></i>
-                    <h5 class="fw-bold">Telecommunications</h5>
-                    <p class="text-muted small">Site installation, fiber optics, network optimization.</p>
+                    <h6 class="fw-bold">Telecommunications</h6>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
-                <div class="text-center p-4 bg-white rounded shadow-sm">
-                    <i class="fas fa-code fa-3x text-info mb-3"></i>
-                    <h5 class="fw-bold">Software Development</h5>
-                    <p class="text-muted small">Web apps, mobile solutions, enterprise systems.</p>
+                <div class="p-4 bg-white rounded shadow-sm text-center">
+                    <i class="fas fa-code fa-3x text-primary mb-3"></i>
+                    <h6 class="fw-bold">Software Development</h6>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
-                <div class="text-center p-4 bg-white rounded shadow-sm">
-                    <i class="fas fa-shield-alt fa-3x text-success mb-3"></i>
-                    <h5 class="fw-bold">Cybersecurity</h5>
-                    <p class="text-muted small">Security audits, penetration testing, monitoring.</p>
+                <div class="p-4 bg-white rounded shadow-sm text-center">
+                    <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
+                    <h6 class="fw-bold">Cybersecurity</h6>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
-                <div class="text-center p-4 bg-white rounded shadow-sm">
-                    <i class="fas fa-hard-hat fa-3x text-warning mb-3"></i>
-                    <h5 class="fw-bold">Engineering</h5>
-                    <p class="text-muted small">Construction, civil engineering, maintenance.</p>
+                <div class="p-4 bg-white rounded shadow-sm text-center">
+                    <i class="fas fa-hard-hat fa-3x text-primary mb-3"></i>
+                    <h6 class="fw-bold">Engineering</h6>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
-                <div class="text-center p-4 bg-white rounded shadow-sm">
-                    <i class="fas fa-bolt fa-3x text-danger mb-3"></i>
-                    <h5 class="fw-bold">Electrical & Power</h5>
-                    <p class="text-muted small">Solar systems, inverters, electrical installation.</p>
+                <div class="p-4 bg-white rounded shadow-sm text-center">
+                    <i class="fas fa-bolt fa-3x text-primary mb-3"></i>
+                    <h6 class="fw-bold">Electrical & Power</h6>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
-                <div class="text-center p-4 bg-white rounded shadow-sm">
-                    <i class="fas fa-truck fa-3x text-secondary mb-3"></i>
-                    <h5 class="fw-bold">Logistics</h5>
-                    <p class="text-muted small">Procurement, import/export, transportation.</p>
+                <div class="p-4 bg-white rounded shadow-sm text-center">
+                    <i class="fas fa-truck fa-3x text-primary mb-3"></i>
+                    <h6 class="fw-bold">Logistics</h6>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
-                <div class="text-center p-4 bg-white rounded shadow-sm">
-                    <i class="fas fa-film fa-3x text-dark mb-3"></i>
-                    <h5 class="fw-bold">Media & Events</h5>
-                    <p class="text-muted small">Event management, media production, content.</p>
+                <div class="p-4 bg-white rounded shadow-sm text-center">
+                    <i class="fas fa-film fa-3x text-primary mb-3"></i>
+                    <h6 class="fw-bold">Media & Events</h6>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
-                <div class="text-center p-4 bg-white rounded shadow-sm">
+                <div class="p-4 bg-white rounded shadow-sm text-center">
                     <i class="fas fa-chart-bar fa-3x text-primary mb-3"></i>
-                    <h5 class="fw-bold">Data & Analytics</h5>
-                    <p class="text-muted small">Data analytics, smart systems, digital transformation.</p>
+                    <h6 class="fw-bold">Data & Analytics</h6>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
 
-<!-- Service Apps Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="h1 mb-3">Explore Our Service Divisions</h2>
-            <p class="lead text-muted">Each service area has dedicated teams and specialized solutions</p>
-        </div>
+<!-- Service Apps -->
+<section class="py-5">
+    <div class="container text-center mb-5">
+        <h2 class="h1 mb-3">Explore Our Services</h2>
+        <p class="lead text-muted">Dedicated teams for each solution area</p>
+    </div>
 
+    <div class="container">
         <div class="row g-4">
             {% for key, service in service_apps.items %}
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <i class="fas {{ service.icon }} fa-3x text-primary"></i>
-                            </div>
-                            <h5 class="card-title fw-bold">{{ service.name }}</h5>
-                            <p class="card-text text-muted">{{ service.description }}</p>
-                        </div>
-                        <div class="card-footer bg-transparent border-0 pt-0">
-                            <a href="{{ service.url }}" class="btn btn-sm btn-outline-primary">
-                                <i class="fas fa-arrow-right me-2"></i>View Services
-                            </a>
-                        </div>
-                    </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+
+                    <i class="fas {{ service.icon }} fa-3x text-primary mb-3"></i>
+
+                    <h5 class="fw-bold">{{ service.name }}</h5>
+                    <p class="text-muted small">{{ service.description }}</p>
+
+                    <a href="{{ service.url }}" class="btn btn-outline-primary btn-sm mt-auto">
+                        View Services →
+                    </a>
+
                 </div>
+            </div>
             {% endfor %}
         </div>
     </div>
 </section>
 
-<!-- Why Choose Us -->
-<section class="py-5">
+<!-- CTA -->
+<section class="py-5 bg-primary text-white text-center">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="h1 mb-3">Why Our Clients Choose Us</h2>
-        </div>
+        <h2 class="mb-3">Ready for Your Next Project?</h2>
+        <p class="lead mb-4">Let’s build something impactful together.</p>
 
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="d-flex gap-3">
-                    <div>
-                        <i class="fas fa-check-circle fa-2x text-success mt-1"></i>
-                    </div>
-                    <div>
-                        <h5 class="fw-bold mb-2">Proven Track Record</h5>
-                        <p class="text-muted small">Years of successful project delivery across multiple sectors.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="d-flex gap-3">
-                    <div>
-                        <i class="fas fa-rocket fa-2x text-info mt-1"></i>
-                    </div>
-                    <div>
-                        <h5 class="fw-bold mb-2">Innovative Approach</h5>
-                        <p class="text-muted small">Latest technologies and creative problem-solving.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="d-flex gap-3">
-                    <div>
-                        <i class="fas fa-headset fa-2x text-primary mt-1"></i>
-                    </div>
-                    <div>
-                        <h5 class="fw-bold mb-2">Dedicated Support</h5>
-                        <p class="text-muted small">Responsive team committed to your project success.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Call to Action -->
-<section class="py-5 bg-success text-white">
-    <div class="container text-center">
-        <h2 class="h1 mb-4">Ready for Your Next Project?</h2>
-        <p class="lead mb-4">
-            Let's turn your ideas into successful outcomes.
-        </p>
-        <a href="{% url 'contact' %}" class="btn btn-light btn-lg">
+        <a href="{% url 'website:contact' %}" class="btn btn-light btn-lg">
             <i class="fas fa-envelope me-2"></i>Start Your Project
         </a>
     </div>
 </section>
+
+<style>
+.project-card {
+    transition: all 0.3s ease;
+}
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.15) !important;
+}
+a.text-decoration-none {
+    display:block;
+    height:100%;
+    color:inherit;
+}
+</style>
+
 {% endblock %}

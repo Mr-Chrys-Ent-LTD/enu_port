@@ -1,49 +1,41 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Software Development - {{ company.name }} Ent.{% endblock %}
+{% block title %}{{ service_name }} - {{ company.name }} Ent.{% endblock %}
 
 {% block content %}
-<!-- Service Header -->
 <section class="page-header">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8">
-                <h1 class="display-5 fw-bold text-white mb-3">Software Development</h1>
-                <p class="lead text-light">Professional custom software solutions for your business</p>
+                <h1 class="display-5 fw-bold text-white mb-3">{{ service_name }}</h1>
+                <p class="lead text-light">Innovative {{ service_name }} solutions for complex challenges</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Service Overview -->
 <section class="py-5">
     <div class="container">
         <div class="row g-5 align-items-center">
             <div class="col-lg-6">
-                <h2 class="h1 mb-4">About Our Software Development Services</h2>
+                <h2 class="h1 mb-4">{{ service_name }} Services</h2>
                 <p class="lead mb-3">
-                    {{ company.name }} delivers comprehensive software development solutions tailored to meet 
-                    your organization's unique needs and challenges.
-                </p>
-                <p class="mb-3">
-                    Our team of experienced developers brings deep technical expertise, modern technologies, 
-                    and proven methodologies to ensure your success.
+                    {{ company.name }} provides professional {{ service_name|lower }} services across multiple disciplines and sectors.
                 </p>
                 <p class="mb-4">
-                    Whether you're looking to build a web application, mobile app, or enterprise software solution, 
-                    we're here to deliver exceptional results.
+                    Our experienced teams deliver scalable, secure, and cost-effective software solutions tailored to your business needs.
                 </p>
                 <a href="{% url 'inquiries:submit_service' 'software_dev' %}" class="btn btn-primary btn-lg">
                     <i class="fas fa-envelope me-2"></i>Request Quote
                 </a>
             </div>
+
             <div class="col-lg-6">
                 <div class="ratio ratio-16x9">
                     <div class="bg-light rounded d-flex align-items-center justify-content-center">
                         <div class="text-center text-muted">
-        
-                            <p><img src="{% static 'images/Software.jpg' %}" alt="Software Development image"></p>
+                            <p><img src="{% static 'images/Software.jpg' %}" alt="{{ service_name }} Image"></p>
                         </div>
                     </div>
                 </div>
@@ -52,82 +44,10 @@
     </div>
 </section>
 
-<!-- Key Features -->
 <section class="py-5 bg-light">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="h1 mb-3">Why Choose Our Software Development Solutions?</h2>
-        </div>
-
-        <div class="row g-4">
-            <div class="col-md-6 col-lg-4">
-                <div class="text-center p-4 bg-white rounded shadow-sm">
-                    <div class="mb-3">
-                        <i class="fas fa-check-circle fa-3x text-success"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">Expert Team</h5>
-                    <p class="text-muted small">Certified developers with years of industry experience</p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="text-center p-4 bg-white rounded shadow-sm">
-                    <div class="mb-3">
-                        <i class="fas fa-rocket fa-3x text-info"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">Innovative Solutions</h5>
-                    <p class="text-muted small">Latest technologies and best practices implementation</p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="text-center p-4 bg-white rounded shadow-sm">
-                    <div class="mb-3">
-                        <i class="fas fa-handshake fa-3x text-primary"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">Partnership Approach</h5>
-                    <p class="text-muted small">Long-term collaboration focused on your success</p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="text-center p-4 bg-white rounded shadow-sm">
-                    <div class="mb-3">
-                        <i class="fas fa-money-bill fa-3x text-success"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">Cost-Effective</h5>
-                    <p class="text-muted small">Competitive pricing without compromising quality</p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="text-center p-4 bg-white rounded shadow-sm">
-                    <div class="mb-3">
-                        <i class="fas fa-headset fa-3x text-warning"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">24/7 Support</h5>
-                    <p class="text-muted small">Dedicated support throughout your project lifecycle</p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="text-center p-4 bg-white rounded shadow-sm">
-                    <div class="mb-3">
-                        <i class="fas fa-chart-line fa-3x text-danger"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">Measurable Results</h5>
-                    <p class="text-muted small">Proven track record of delivering tangible outcomes</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Technology Stack -->
-<section class="py-5">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="h1 mb-3">Our Technology Stack</h2>
+            <h2 class="h1 mb-3">Our {{ service_name }} Expertise</h2>
         </div>
 
         <div class="row g-4">
@@ -148,68 +68,105 @@
     </div>
 </section>
 
-<!-- Completed Projects -->
-<section class="py-5 bg-light">
+<section class="py-5">
     <div class="container">
         <div class="text-center mb-5">
             <h2 class="h1 mb-3">Completed Projects</h2>
-            <p class="lead text-muted">Showcasing our successful software development solutions</p>
+            <p class="lead text-muted">Showcasing our successful {{ service_name|lower }} implementations</p>
         </div>
+
         {% if projects %}
             <div class="row g-4">
                 {% for project in projects %}
                     <div class="col-lg-4">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold text-primary">{{ project.title }}</h5>
-                                
-                                {% if project.client %}
-                                    <p class="mb-2 small text-secondary">
-                                        <i class="fas fa-building me-1 text-primary"></i><strong>Client:</strong> {{ project.client }}
-                                    </p>
-                                {% endif %}
-                                
-                                <p class="card-text text-secondary small mb-3">{{ project.description }}</p>
-                                
-                                {% if project.technologies %}
-                                    <p class="small text-muted mb-3">
-                                        <strong><i class="fas fa-tools me-1 text-primary"></i>Technologies:</strong> {{ project.technologies }}
-                                    </p>
-                                {% endif %}
-                                
-                                {% if project.result %}
-                                    <div class="alert alert-success small py-2 px-3" style="font-size: 0.85rem;">
-                                        <strong><i class="fas fa-check-circle me-1"></i>Outcome:</strong> {{ project.result }}
+                        <a href="{% url 'software_dev:project_detail' project.slug %}" class="text-decoration-none">
+                            
+                            <div class="card h-100 border-0 shadow-sm transition-all d-flex flex-column">
+
+                                {% if project.featured_image %}
+                                    <img src="{{ project.featured_image.url }}" 
+                                         alt="{{ project.title }}" 
+                                         class="card-img-top"
+                                         style="height: 200px; object-fit: cover;">
+                                {% else %}
+                                    <div style="height: 200px; background: linear-gradient(135deg, #0d6efd 0%, #003d82 100%); display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-code fa-4x" style="color: rgba(255,255,255,0.3);"></i>
                                     </div>
                                 {% endif %}
-                            </div>
-                            {% if project.completion_date %}
-                                <div class="card-footer bg-light text-muted small">
-                                    <i class="fas fa-calendar-alt me-1"></i>Completed: {{ project.completion_date|date:"M Y" }}
+
+                                <div class="card-body d-flex flex-column">
+                                    
+                                    <h5 class="card-title fw-bold text-primary">{{ project.title }}</h5>
+
+                                    {% if project.client %}
+                                        <p class="mb-2 small text-secondary">
+                                            <i class="fas fa-building me-2 text-primary"></i>
+                                            <strong>Client:</strong> {{ project.client }}
+                                        </p>
+                                    {% endif %}
+
+                                    {% if project.completion_date %}
+                                        <p class="mb-3 small text-secondary">
+                                            <i class="fas fa-calendar-alt me-2 text-primary"></i>
+                                            <strong>Completed:</strong> {{ project.completion_date|date:"M Y" }}
+                                        </p>
+                                    {% endif %}
+
+                                    <p class="card-text text-secondary small mb-4 flex-grow-1">
+                                        {{ project.description|truncatewords:30 }}
+                                    </p>
+
+                                    {% if project.result %}
+                                        <div class="alert alert-success small py-2 px-3 mb-0" style="background-color: rgba(25,135,84,0.1); border: 1px solid #198754;">
+                                            <i class="fas fa-check-circle me-2 text-success"></i>
+                                            <strong>Outcome:</strong> {{ project.result|truncatewords:15 }}
+                                        </div>
+                                    {% endif %}
                                 </div>
-                            {% endif %}
-                        </div>
+
+                                <div class="card-footer bg-white border-top pt-3 pb-3">
+                                    <span class="btn btn-sm btn-outline-primary w-100">
+                                        View Full Details <i class="fas fa-arrow-right ms-2"></i>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </a>
                     </div>
                 {% endfor %}
             </div>
+
         {% else %}
-            <div class="alert alert-info text-center" role="alert">
-                <p class="mb-0">Check back soon for our project portfolio. We're working on amazing solutions!</p>
+            <div class="alert alert-info text-center">
+                <p class="mb-0">
+                    Check back soon for our software development portfolio. We're actively building innovative solutions!
+                </p>
             </div>
         {% endif %}
     </div>
 </section>
 
-<!-- Call to Action -->
 <section class="py-5 bg-primary text-white">
     <div class="container text-center">
-        <h2 class="h1 mb-4">Ready to Build Something Great?</h2>
+        <h2 class="h1 mb-4">Let's Build Your Software</h2>
         <p class="lead mb-4">
-            Let's discuss how we can help your business succeed with custom software development.
+            Partner with our developers to turn your ideas into scalable digital products.
         </p>
         <a href="{% url 'inquiries:submit_service' 'software_dev' %}" class="btn btn-light btn-lg">
-            <i class="fas fa-envelope me-2"></i>Contact Us Today
+            <i class="fas fa-envelope me-2"></i>Get Started
         </a>
     </div>
 </section>
+
+<style>
+    .transition-all:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .transition-all:hover .card-title {
+        color: #0056b3 !important;
+    }
+</style>
+
 {% endblock %}

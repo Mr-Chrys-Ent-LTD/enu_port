@@ -112,7 +112,7 @@
                             {% endfor %}
                         {% endif %}
 
-                        <form method="POST" action="{% url 'contact' %}" novalidate>
+                        <form method="POST" action="{% url 'website:contact' %}" novalidate>
                             {% csrf_token %}
 
                             <!-- Name Field -->
